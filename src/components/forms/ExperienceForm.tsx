@@ -14,14 +14,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../store/store";
+import { RootState } from "../../store/store";
 import {
   addExperience,
   updateExperience,
   removeExperience,
   validateExperience,
-} from "../reducers/experienceSlice";
-import DateSelector from "./DateSelector";
+} from "../../reducers/experienceSlice";
+import DateSelector from "../DateSelector";
 
 const ExperienceForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -86,9 +86,11 @@ const ExperienceForm: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h2" gutterBottom>
         Add any relevant experience
       </Typography>
+
+      {/* Add a new experience item or edit an existing one */}
       <Box display="flex" flexDirection="column" gap={2} mb={3}>
         <Box>
           Start date:{" "}
@@ -148,6 +150,7 @@ const ExperienceForm: React.FC = () => {
         </Button>
       </Box>
 
+      {/* Listing of experiences */}
       <Typography variant="h6" gutterBottom>
         Experience
       </Typography>

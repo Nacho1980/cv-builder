@@ -1,8 +1,8 @@
 import React from "react";
-import PersonalInfoForm from "./PersonalInfoForm";
-import EducationForm from "./EducationForm";
-import ExperienceForm from "./ExperienceForm";
-import OptionalSectionsForm from "./OptionalSectionsForm";
+import PersonalInfoForm from "./forms/PersonalInfoForm";
+import EducationForm from "./forms/EducationForm";
+import ExperienceForm from "./forms/ExperienceForm";
+import OptionalSectionsForm from "./forms/OptionalSectionsForm";
 import DesignAndDownload from "./DesignAndDownload";
 
 interface StepComponent {

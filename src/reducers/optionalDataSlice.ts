@@ -1,9 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface LanguageItem {
-  language: string;
-  level: string;
-}
+import { LanguageItem } from "../types";
 
 interface OptionalDataState {
   summary: string;

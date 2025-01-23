@@ -13,13 +13,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../store/store";
+import { RootState } from "../../store/store";
 import {
   addEducation,
   updateEducation,
   removeEducation,
   validateEducation,
-} from "../reducers/educationSlice";
+} from "../../reducers/educationSlice";
 
 const EducationForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -63,9 +63,11 @@ const EducationForm: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h2" gutterBottom>
         Add any relevant education
       </Typography>
+
+      {/* Add a new education item or edit an existing one */}
       <Box display="flex" flexDirection="column" gap={2} mb={3}>
         <TextField
           label="Year of completion"
@@ -104,8 +106,9 @@ const EducationForm: React.FC = () => {
         </Button>
       </Box>
 
+      {/* Listing of education */}
       <Typography variant="h6" gutterBottom>
-        Education List
+        Education
       </Typography>
       {errors.length > 0 && (
         <Typography color="error" gutterBottom>

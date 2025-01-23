@@ -11,25 +11,11 @@ import {
 import CalendarTodayRoundedIcon from "@mui/icons-material/CalendarTodayRounded";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import { months } from "../constants";
 
 interface DateSelectorProps {
   onDateChange: (date: string) => void; // Callback to return the selected date in MM-YYYY format
 }
-
-const months = [
-  { value: "01", label: "January" },
-  { value: "02", label: "February" },
-  { value: "03", label: "March" },
-  { value: "04", label: "April" },
-  { value: "05", label: "May" },
-  { value: "06", label: "June" },
-  { value: "07", label: "July" },
-  { value: "08", label: "August" },
-  { value: "09", label: "September" },
-  { value: "10", label: "October" },
-  { value: "11", label: "November" },
-  { value: "12", label: "December" },
-];
 
 const DateSelector: React.FC<DateSelectorProps> = ({ onDateChange }) => {
   const currentYear = new Date().getFullYear();

@@ -8,7 +8,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import useGetCountries from "../hooks/useGetCountries";
-import { Country } from "../constants";
+import { Country } from "../types";
 
 interface CountrySelectorProps {
   handleChangeCountry: (event: SelectChangeEvent<string>) => void;
