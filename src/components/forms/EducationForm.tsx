@@ -20,10 +20,15 @@ import {
   removeEducation,
   validateEducation,
 } from "../../reducers/educationSlice";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import SchoolIcon from "@mui/icons-material/School";
+import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
+import DateSelector from "../DateSelector";
 
 const EducationForm: React.FC = () => {
   const dispatch = useDispatch();
-  const { items, errors } = useSelector((state: RootState) => state.education);
+  const { items } = useSelector((state: RootState) => state.education);
+  const [errorFields, setErrorFields] = useState<string[]>([]);
 
   const [newEducation, setNewEducation] = useState({
     year: "",
@@ -39,6 +44,21 @@ const EducationForm: React.FC = () => {
         [field]: event.target.value,
       });
     };
+  // Action creator for validating the field when leaving the field
+  const handleBlur = (field: keyof typeof newEducation) => () => {
+    if (newEducation[field] === "" && !errorFields.includes(field)) {
+      setErrorFields([...errorFields, field]);
+    } else if (errorFields.includes(field)) {
+      setErrorFields(errorFields.filter((f) => f !== field));
+    }
+  };
+
+  const handleDateChange = (field: string) => (value: string) => {
+    setNewEducation({
+      ...newEducation,
+      [field]: value,
+    });
+  };
 
   const handleAddOrUpdate = () => {
     if (editIndex !== null) {
@@ -62,37 +82,55 @@ const EducationForm: React.FC = () => {
   };
 
   return (
-    <Box>
-      <Typography variant="h2" gutterBottom>
-        Add any relevant education
-      </Typography>
+    <>
+      <Box className="page-header">Education</Box>
 
       {/* Add a new education item or edit an existing one */}
-      <Box display="flex" flexDirection="column" gap={2} mb={3}>
-        <TextField
-          label="Year of completion"
-          value={newEducation.year}
-          onChange={handleChange("year")}
-          fullWidth
-          error={!newEducation.year}
-          helperText={!newEducation.year ? "Year is required" : ""}
-        />
-        <TextField
-          label="Center"
-          value={newEducation.center}
-          onChange={handleChange("center")}
-          fullWidth
-          error={!newEducation.center}
-          helperText={!newEducation.center ? "Center is required" : ""}
-        />
+      <Box display="flex" alignItems="center" gap={4}>
+        <Box display="flex" alignItems="center" gap={2}>
+          <CalendarMonthIcon style={{ fontSize: 40, color: "coral" }} />
+          {/* <DateSelector onDateChange={handleDateChange("year")} /> */}
+          <TextField
+            value={newEducation.year ? newEducation.year : "Date (mm-YYYY)"}
+            sx={{
+              input: {
+                color: "rgba(0, 0, 0, 0.87)",
+              },
+            }}
+            disabled
+          >
+            {newEducation?.year ? newEducation?.year : "mm-yyyy"}
+          </TextField>
+          <DateSelector onDateChange={handleDateChange("year")} />
+        </Box>
+        <Box display="flex" alignItems="center" gap={2} flex={1}>
+          <AssuredWorkloadIcon style={{ fontSize: 40, color: "coral" }} />
+          <TextField
+            label="Center"
+            value={newEducation.center}
+            onChange={handleChange("center")}
+            onBlur={handleBlur("center")}
+            fullWidth
+            error={errorFields.includes("center")}
+            sx={{
+              width: "100%",
+            }}
+          />
+        </Box>
+      </Box>
+      <Box display="flex" alignItems="center" gap={2}>
+        <SchoolIcon style={{ fontSize: 40, color: "coral" }} />
         <TextField
           label="Degree or Certification"
           value={newEducation.degree}
           onChange={handleChange("degree")}
+          onBlur={handleBlur("degree")}
           fullWidth
-          error={!newEducation.degree}
-          helperText={!newEducation.degree ? "Degree is required" : ""}
+          error={errorFields.includes("degree")}
+          sx={{}}
         />
+      </Box>
+      <Box display="flex" justifyContent="center">
         <Button
           variant="contained"
           color="primary"
@@ -107,12 +145,13 @@ const EducationForm: React.FC = () => {
       </Box>
 
       {/* Listing of education */}
-      <Typography variant="h6" gutterBottom>
-        Education
-      </Typography>
-      {errors.length > 0 && (
-        <Typography color="error" gutterBottom>
-          {errors.join(", ")}
+      {items.length > 0 && (
+        <Typography
+          variant="h6"
+          gutterBottom
+          sx={{ color: "coral", marginTop: "32px" }}
+        >
+          Education
         </Typography>
       )}
       <List>
@@ -131,13 +170,13 @@ const EducationForm: React.FC = () => {
             }
           >
             <ListItemText
-              primary={`${item.year} - ${item.center}`}
+              primary={`[${item.year}] ${item.center}`}
               secondary={item.degree}
             />
           </ListItem>
         ))}
       </List>
-    </Box>
+    </>
   );
 };
 

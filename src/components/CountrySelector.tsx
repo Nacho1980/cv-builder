@@ -30,9 +30,10 @@ const CountrySelector: React.FC<CountrySelectorProps> = ({
     return <div>Error loading countries: {error}</div>;
   } else if (countries.length > 0) {
     return (
-      <Box width="300px" m="20px">
+      <Box width="300px">
         <FormControl fullWidth>
           <Select
+            className="country-select"
             labelId="country-select-label"
             value={selectedCountry}
             onChange={handleChange}

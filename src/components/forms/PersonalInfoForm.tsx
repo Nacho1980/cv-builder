@@ -6,6 +6,7 @@ import {
   Modal,
   SelectChangeEvent,
   Typography,
+  FormHelperText,
 } from "@mui/material";
 import AodRoundedIcon from "@mui/icons-material/AodRounded";
 import AlternateEmailRoundedIcon from "@mui/icons-material/AlternateEmailRounded";
@@ -38,60 +39,69 @@ const PersonalInfoForm: React.FC = () => {
   };
 
   return (
-    <Box>
-      <Typography variant="h2" gutterBottom>
-        Let's start with some basic personal information!
-      </Typography>
-      <Box display="flex" alignItems="center" gap={2}>
-        <PersonRoundedIcon style={{ fontSize: 40, color: "blue" }} />
-        <TextField
-          label="Full Name"
-          fullWidth
-          value={fields.fullName}
-          onChange={handleChange("fullName")}
-          onBlur={handleBlur("fullName")} // Validate on blur
-          error={!!errors.fullName}
-          helperText={errors.fullName}
-        />
+    <>
+      <Box className="page-header">Contact data</Box>
+      <Box display="flex" flexDirection="column" gap={2}>
+        <Box display="flex" alignItems="center" gap={2}>
+          <PersonRoundedIcon style={{ fontSize: 40, color: "coral" }} />
+          <TextField
+            label="Full Name"
+            fullWidth
+            value={fields.fullName}
+            onChange={handleChange("fullName")}
+            onBlur={handleBlur("fullName")} // Validate on blur
+            error={!!errors.fullName}
+          />
+        </Box>
+        <Box display="flex" alignItems="center" gap={2}>
+          <AlternateEmailRoundedIcon style={{ fontSize: 40, color: "coral" }} />
+          <TextField
+            label="Email Address"
+            fullWidth
+            value={fields.email}
+            onChange={handleChange("email")}
+            onBlur={handleBlur("email")}
+            error={!!errors.email}
+            //helperText={errors.email}
+            sx={{
+              backgroundColor: "transparent", // Ensures background doesn't change
+              "& .MuiInputBase-root": {
+                backgroundColor: "transparent",
+              },
+            }}
+          />
+        </Box>
+        <Box display="flex" alignItems="center" gap={2}>
+          <ApartmentRoundedIcon style={{ fontSize: 40, color: "coral" }} />
+          <TextField
+            label="City"
+            fullWidth
+            value={fields.city}
+            onChange={handleChange("city")}
+            onBlur={handleBlur("city")}
+            error={!!errors.city}
+          />
+          <CountrySelector handleChangeCountry={handleChangeCountry} />
+        </Box>
+        <Box display="flex" alignItems="center" gap={2}>
+          <AodRoundedIcon style={{ fontSize: 40, color: "coral" }} />
+          <TextField
+            label="Telephone"
+            fullWidth
+            value={fields.telephone}
+            onChange={handleChange("telephone")}
+            onBlur={handleBlur("telephone")}
+            error={!!errors.telephone}
+            sx={{
+              backgroundColor: "transparent", // Ensures background doesn't change
+              "& .MuiInputBase-root": {
+                backgroundColor: "transparent",
+              },
+            }}
+          />
+        </Box>
       </Box>
-      <Box display="flex" alignItems="center" gap={2}>
-        <AlternateEmailRoundedIcon style={{ fontSize: 40, color: "blue" }} />
-        <TextField
-          label="Email Address"
-          fullWidth
-          value={fields.email}
-          onChange={handleChange("email")}
-          onBlur={handleBlur("email")}
-          error={!!errors.email}
-          helperText={errors.email}
-        />
-      </Box>
-      <Box display="flex" alignItems="center" gap={2}>
-        <ApartmentRoundedIcon style={{ fontSize: 40, color: "blue" }} />
-        <TextField
-          label="City"
-          fullWidth
-          value={fields.city}
-          onChange={handleChange("city")}
-          onBlur={handleBlur("city")}
-          error={!!errors.city}
-          helperText={errors.city}
-        />
-        <CountrySelector handleChangeCountry={handleChangeCountry} />
-      </Box>
-      <Box display="flex" alignItems="center" gap={2}>
-        <AodRoundedIcon style={{ fontSize: 40, color: "blue" }} />
-        <TextField
-          label="Telephone"
-          fullWidth
-          value={fields.telephone}
-          onChange={handleChange("telephone")}
-          onBlur={handleBlur("telephone")}
-          error={!!errors.telephone}
-          helperText={errors.telephone}
-        />
-      </Box>
-    </Box>
+    </>
   );
 };
 

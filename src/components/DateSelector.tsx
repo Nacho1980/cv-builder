@@ -40,12 +40,8 @@ const DateSelector: React.FC<DateSelectorProps> = ({ onDateChange }) => {
   return (
     <Box>
       {/* Button with calendar icon */}
-      <Button
-        variant="contained"
-        startIcon={<CalendarTodayRoundedIcon />}
-        onClick={handleOpen}
-      >
-        Select Date
+      <Button variant="contained" onClick={handleOpen}>
+        <CalendarTodayRoundedIcon />
       </Button>
 
       {/* Overlay dialog */}

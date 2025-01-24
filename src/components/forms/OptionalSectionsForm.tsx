@@ -88,10 +88,10 @@ const OptionalSectionsForm: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h2" gutterBottom>
+      <Box className="page-header">
         Consider adding a summary, a list of your skills and languages to your
         CV (all are optional)
-      </Typography>
+      </Box>
 
       {/* Summary */}
       <Box display="flex" flexDirection="column" gap={2} mb={3}>

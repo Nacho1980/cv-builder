@@ -32,16 +32,29 @@
     .paragraph {
       font-size: 1.5em;
     }
+
+    input {
+      background-color: lightblue !important;
+    }
   }
 
-  .current-page-component {
+  .current-page-container {
     display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
   }
 
   .navigation-bar {
     display: flex;
     margin-top: 64px;
     justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    .MuiSlider-root {
+      margin: unset;
+    }
   }
 }
 
@@ -78,4 +91,23 @@
     display: flex;
     align-items: center;
   }
+}
+
+.page-header {
+  font-size: 2rem;
+  color: coral;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+input[type="text"] {
+  background-color: lightblue !important;
+}
+
+input:-webkit-autofill {
+  background-color: lightblue !important;
+  -webkit-box-shadow: 0 0 0px 1000px lightblue inset !important;
+  box-shadow: 0 0 0px 1000px lightblue inset !important;
+  color: inherit !important;
 }

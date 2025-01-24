@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FormState } from "../constants";
+import { validateInternationalPhoneNumber } from "../utils";
 
 const initialState: FormState = {
   fields: {
@@ -60,7 +61,9 @@ const validateField = (field: string, value: string): string | null => {
     case "country":
       return value.trim() === "" ? "Country is required" : null;
     case "telephone":
-      return value.trim() === "" ? "Telephone is required" : null;
+      return !validateInternationalPhoneNumber(value)
+        ? "Invalid telephone"
+        : null;
     default:
       return null;
   }
