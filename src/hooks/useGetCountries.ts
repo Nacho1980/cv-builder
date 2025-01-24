@@ -15,10 +15,13 @@ const useGetCountries = () => {
         }
 
         const data = await response.json();
-        const formattedCountries = data.map((country: any) => ({
-          code: country.cca2, // ISO 3166-1 alpha-2 code
-          label: country.name.common, // Country name
-        }));
+        const formattedCountries = data
+          .map((country: any) => ({
+            code: country.cca2, // ISO 3166-1 alpha-2 code
+            label: country.name.common, // Country name
+          }))
+          .sort((a: any, b: any) => a.label.localeCompare(b.label)); // Sort by label;
+        formattedCountries.sort;
         setCountries(formattedCountries);
       } catch (err: any) {
         setError(err.message || "An unknown error occurred.");

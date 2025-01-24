@@ -1,1 +1,81 @@
+.main-header {
+  margin: 32px;
+  display: flex;
+  justify-content: center;
+}
 
+.main-body {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  box-sizing: border-box;
+
+  .welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+
+    h1 {
+      display: flex;
+      justify-content: center;
+      align-self: center;
+      color: coral;
+      width: 100%;
+    }
+
+    .paragraph {
+      font-size: 1.5em;
+    }
+  }
+
+  .current-page-component {
+    display: flex;
+  }
+
+  .navigation-bar {
+    display: flex;
+    margin-top: 64px;
+    justify-content: center;
+  }
+}
+
+.paragraph {
+  margin-top: 32px;
+  text-align: center;
+
+  .bold-text {
+    font-weight: bold;
+    color: coral;
+  }
+}
+
+.MuiAvatar-root.MuiAvatar-circular.MuiAvatar-colorDefault.avatar {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  background-color: bisque;
+
+  a {
+    color: coral;
+  }
+}
+
+.space-between {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 32px;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+}

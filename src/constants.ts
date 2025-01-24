@@ -42,3 +42,6 @@ export enum TemplateTypes {
   ONE_COLUMN = "1col",
   TWO_COLUMNS = "2col",
 }
+
+export const MY_LINKEDIN_PROFILE =
+  "https://www.linkedin.com/in/ignacio-santos-alonso-90b1b633/";

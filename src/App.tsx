@@ -1,11 +1,14 @@
 import { useState } from "react";
 import "./App.css";
 import { stepComponents } from "./components/StepComponents";
-import { Box, Button } from "@mui/material";
+import { Avatar, Box, Button } from "@mui/material";
 import Stepper from "./components/Stepper";
-import { stepLabels } from "./constants";
+import { MY_LINKEDIN_PROFILE, stepLabels } from "./constants";
 import { useSelector } from "react-redux";
 import { RootState } from "./store/store";
+import LooksOneIcon from "@mui/icons-material/LooksOne";
+import LooksTwoIcon from "@mui/icons-material/LooksTwo";
+import Looks3Icon from "@mui/icons-material/Looks3";
 
 function App() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -25,63 +28,95 @@ function App() {
   };
 
   return (
-    <>
-      <div className="header">CV Builder</div>
-      <div className="body">
-        {currentStep === 0 && (
-          <div className="welcome">
-            <h1>Welcome to the CV Builder</h1>
+    <div className="main-body">
+      {/* Welcome page */}
+      {currentStep === 0 && (
+        <div className="welcome">
+          <Avatar
+            alt="Ignacio Santos"
+            sx={{ bgcolor: "lightblue", color: "bisque" }}
+            className="avatar"
+          >
+            <a href={MY_LINKEDIN_PROFILE}>IS</a>
+          </Avatar>
+          <h1>Welcome to the CV Builder</h1>
+          <div className="paragraph">
+            Create a professional CV in a few simple steps:
+          </div>
+          <div className="paragraph space-between">
             <div>
-              This tool will help you create a professional CV in a few simple
-              steps and unlike other tools you can find on Google it's
-              completely FREE and no personal information is stored anywhere
+              <LooksOneIcon
+                sx={{
+                  fontSize: 40,
+                  backgroundColor: "lightblue",
+                  color: "coral",
+                }}
+              />
+              Fill in the required info
             </div>
             <div>
-              Once you have finished entering the required information, you can
-              customize the look and download the CV in PDF format.
+              <LooksTwoIcon
+                sx={{
+                  fontSize: 40,
+                  backgroundColor: "lightblue",
+                  color: "coral",
+                }}
+              />
+              Customize the look
+            </div>
+            <div>
+              <Looks3Icon
+                sx={{
+                  fontSize: 40,
+                  backgroundColor: "lightblue",
+                  color: "coral",
+                }}
+              />
+              Download the CV
             </div>
           </div>
-        )}
-        {/* Progress bar */}
+          <div className="paragraph">
+            Unlike other online tools CV Builder is &nbsp;
+            <span className="bold-text">FREE</span>&nbsp; and no personal
+            information is stored anywhere :)
+          </div>
+        </div>
+      )}
+
+      {/* Render the step's component */}
+      <div className="current-page-component">
+        {currentStepComponent?.component ? (
+          <currentStepComponent.component />
+        ) : null}
+      </div>
+
+      {/* Navigation buttons */}
+      <div className="navigation-bar">
         {currentStep > 0 && (
-          <Stepper currentStep={currentStep} steps={stepLabels} />
-        )}
-
-        {/* Render the step's component */}
-        <Box sx={{ marginTop: 4 }}>
-          {currentStepComponent?.component ? (
-            <currentStepComponent.component />
-          ) : null}
-        </Box>
-
-        {/* Navigation buttons */}
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: 4,
-          }}
-        >
           <Button
             variant="outlined"
             onClick={previousStep}
             disabled={currentStep === 1}
           >
-            Previous
+            {"<<"}
           </Button>
-          <Button
-            variant="contained"
-            onClick={nextStep}
-            disabled={
-              currentStep === stepComponents.length ||
-              (currentStep === 1 && !isValid)
-            }
-          >
-            Next
-          </Button>
-        </Box>
+        )}
+        {/* Progress bar */}
+        {currentStep > 0 && (
+          <Stepper currentStep={currentStep} steps={stepLabels} />
+        )}
+        <Button
+          variant="contained"
+          onClick={nextStep}
+          disabled={
+            currentStep === stepComponents.length ||
+            (currentStep === 1 && !isValid)
+          }
+        >
+          {currentStep === 0 ? "Start" : ">>"}
+        </Button>
       </div>
-    </>
+    </div>
   );
 }
 
