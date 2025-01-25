@@ -4,7 +4,7 @@ export const stepLabels: Step[] = [
   { value: 1, label: "Personal Info" },
   { value: 2, label: "Education" },
   { value: 3, label: "Work Experience" },
-  { value: 4, label: "Others" },
+  { value: 4, label: "Optional" },
   { value: 5, label: "Customize design" },
 ];
 export interface FormState {
@@ -29,12 +29,12 @@ export const months = [
 ];
 
 export const languageLevels = [
-  { value: 1, label: "A1 or basic" },
-  { value: 2, label: "A2 or upper elementary" },
-  { value: 3, label: "B1 or medium" },
-  { value: 4, label: "B2 or medium-high" },
-  { value: 5, label: "C1 or advanced" },
-  { value: 6, label: "C2 or proficient" },
+  { value: 1, label: "A1" },
+  { value: 2, label: "A2" },
+  { value: 3, label: "B1" },
+  { value: 4, label: "B2" },
+  { value: 5, label: "C1" },
+  { value: 6, label: "C2" },
   { value: 7, label: "Native" },
 ];
 

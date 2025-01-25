@@ -1,12 +1,17 @@
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 import { LanguageItem } from "../../types";
+import { getLevelText } from "../../utils";
 
 export const Template2Columns = ({
   data,
   color,
+  bgColor,
+  headingColor,
 }: {
   data: any;
   color: string;
+  bgColor: string;
+  headingColor: string;
 }) => {
   const styles = StyleSheet.create({
     page: {
@@ -14,23 +19,36 @@ export const Template2Columns = ({
       fontSize: 12,
       lineHeight: 1.5,
       color: color,
+      backgroundColor: bgColor,
       display: "flex",
       flexDirection: "row",
     },
-    column: {
-      flex: 1,
+    title: {
+      fontSize: 32,
+    },
+    leftColumn: {
+      width: "40%",
+      padding: 10,
+    },
+    rightColumn: {
+      width: "60%",
       padding: 10,
     },
     section: {
       marginBottom: 20,
       paddingBottom: 10,
-      borderBottom: "1px solid #ccc",
+    },
+    sectionWithBorderBottom: {
+      marginBottom: 20,
+      paddingBottom: 10,
+      borderBottom: `1px solid ${headingColor}`,
     },
     heading: {
       fontSize: 16,
       marginBottom: 10,
-      fontWeight: "bold",
-      color: "#000",
+      fontWeight: 300,
+      color: headingColor,
+      borderBottom: `1px solid ${headingColor}`,
     },
     text: {
       marginBottom: 5,
@@ -44,17 +62,23 @@ export const Template2Columns = ({
     <Document>
       <Page size="A4" style={styles.page}>
         {/* First Column */}
-        <View style={styles.column}>
+        <View style={styles.leftColumn}>
           {/* Personal Data Section */}
           <View style={styles.section}>
-            <Text style={styles.heading}>Personal Data</Text>
-            <Text style={styles.text}>Name: {data.personalData.fullName}</Text>
-            <Text style={styles.text}>Email: {data.personalData.email}</Text>
+            <Text style={styles.title}>
+              {data.personalData.fields.fullName}
+            </Text>
+          </View>
+          <View style={styles.section}>
             <Text style={styles.text}>
-              Telephone: {data.personalData.telephone}
+              Email: {data.personalData.fields.email}
             </Text>
             <Text style={styles.text}>
-              Location: {data.personalData.city} ({data.personalData.country})
+              Telephone: {data.personalData.fields.telephone}
+            </Text>
+            <Text style={styles.text}>
+              Location: {data.personalData.fields.city} (
+              {data.personalData.fields.country})
             </Text>
           </View>
 
@@ -72,7 +96,7 @@ export const Template2Columns = ({
         </View>
 
         {/* Second Column */}
-        <View style={styles.column}>
+        <View style={styles.rightColumn}>
           {/* Summary Section */}
           {data.optionalData?.summary && (
             <View style={styles.section}>
@@ -133,7 +157,8 @@ export const Template2Columns = ({
               {data.optionalData.languages.map(
                 (language: LanguageItem, index: number) => (
                   <Text key={index} style={styles.listItem}>
-                    • {language.language} - Level: {language.level}
+                    • {language.language} - Level:{" "}
+                    {getLevelText(language.level)}
                   </Text>
                 )
               )}

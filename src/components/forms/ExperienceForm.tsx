@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Button,
+  Divider,
   IconButton,
   List,
   ListItem,
   ListItemText,
   Radio,
+  Switch,
   TextField,
   Typography,
 } from "@mui/material";
@@ -23,10 +28,13 @@ import {
 } from "../../reducers/experienceSlice";
 import DateSelector from "../DateSelector";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import CustomAccordion from "../CustomAccordion";
 
 const ExperienceForm: React.FC = () => {
   const dispatch = useDispatch();
-  const { items, errors } = useSelector((state: RootState) => state.experience);
+  const { items } = useSelector((state: RootState) => state.experience);
+  const [errorFields, setErrorFields] = useState<string[]>([]);
 
   const [newExperience, setNewExperience] = useState({
     startDate: "",
@@ -40,14 +48,31 @@ const ExperienceForm: React.FC = () => {
 
   const handleChange =
     (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      setNewExperience({
-        ...newExperience,
-        [field]: event.target.value,
-      });
+      if (field !== "currentlyWorking") {
+        setNewExperience({
+          ...newExperience,
+          [field]: event.target.value,
+        });
+      } else {
+        setNewExperience({
+          ...newExperience,
+          [field]: !newExperience.currentlyWorking,
+        });
+      }
     };
+  // Action creator for validating the field when leaving the field
+  const handleBlur = (field: keyof typeof newExperience) => () => {
+    if (newExperience[field] === "" && !errorFields.includes(field)) {
+      setErrorFields([...errorFields, field]);
+    } else if (errorFields.includes(field)) {
+      setErrorFields(errorFields.filter((f) => f !== field));
+    }
+  };
   const handleDateChange = (field: string) => (value: string) => {
     setNewExperience({
       ...newExperience,
+      currentlyWorking:
+        field === "finishDate" ? false : newExperience.currentlyWorking,
       [field]: value,
     });
   };
@@ -91,63 +116,31 @@ const ExperienceForm: React.FC = () => {
 
       {/* Add a new experience item or edit an existing one */}
       <Box display="flex" flexDirection="column" gap={2} mb={3}>
-        <Box
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="space-between"
-          gap={2}
-        >
+        <Box display="flex" flexDirection="row" alignItems="center" gap={2}>
           <CalendarMonthIcon style={{ fontSize: 40, color: "coral" }} />
           <Box display="flex" alignItems="center" gap={2}>
-            <TextField
-              value={
-                newExperience.startDate ? newExperience.startDate : "Start date"
-              }
-              sx={{
-                input: {
-                  color: "rgba(0, 0, 0, 0.87)",
-                },
-                label: {
-                  color: "rgba(0, 0, 0, 0.87)",
-                },
-              }}
-              disabled
-            >
-              {newExperience?.startDate ? newExperience?.startDate : "mm-yyyy"}
-            </TextField>
-            <DateSelector onDateChange={handleDateChange("startDate")} />
+            <DateSelector
+              label="Start date"
+              onDateChange={handleDateChange("startDate")}
+              selectedDate={newExperience.startDate}
+            />
           </Box>
-          <Box display="flex" alignItems="center" gap={2}>
-            <TextField
-              value={
-                newExperience.finishDate ? newExperience.finishDate : "End date"
-              }
-              sx={{
-                input: {
-                  color: "rgba(0, 0, 0, 0.87)",
-                },
-                label: {
-                  color: "rgba(0, 0, 0, 0.87)",
-                },
-              }}
-              disabled
-            >
-              {newExperience?.finishDate
-                ? newExperience?.finishDate
-                : "mm-yyyy"}
-            </TextField>
-            <DateSelector onDateChange={handleDateChange("endDate")} />
-          </Box>
+          {newExperience.currentlyWorking === false && (
+            <Box display="flex" alignItems="center" gap={2}>
+              <DateSelector
+                label="End date"
+                onDateChange={handleDateChange("finishDate")}
+                selectedDate={newExperience.finishDate}
+              />
+            </Box>
+          )}
           <Box>
-            <Radio
+            <Switch
               checked={newExperience.currentlyWorking === true}
               onChange={handleChange("currentlyWorking")}
-              value={newExperience.currentlyWorking}
-              name="radio-button"
               inputProps={{ "aria-label": "Currently working" }}
             />
-            Currently working
+            Current employer
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap={2}>
@@ -155,9 +148,9 @@ const ExperienceForm: React.FC = () => {
             label="Company"
             value={newExperience.companyName}
             onChange={handleChange("companyName")}
+            onBlur={handleBlur("companyName")}
             fullWidth
-            error={!newExperience.companyName}
-            helperText={!newExperience.companyName ? "Company is required" : ""}
+            error={errorFields.includes("companyName")}
           />
         </Box>
         <Box display="flex" alignItems="center" gap={2}>
@@ -165,11 +158,9 @@ const ExperienceForm: React.FC = () => {
             label="Position"
             value={newExperience.positionName}
             onChange={handleChange("positionName")}
+            onBlur={handleBlur("positionName")}
             fullWidth
-            error={!newExperience.positionName}
-            helperText={
-              !newExperience.positionName ? "Position is required" : ""
-            }
+            error={errorFields.includes("positionName")}
           />
         </Box>
         <Box display="flex" alignItems="center" gap={2}>
@@ -177,64 +168,76 @@ const ExperienceForm: React.FC = () => {
             label="Description of the tasks performed"
             value={newExperience.summary}
             onChange={handleChange("summary")}
+            onBlur={handleBlur("summary")}
             multiline
             rows={4}
             fullWidth
-            error={!newExperience.summary}
-            helperText={
-              !newExperience.summary ? "A description is required" : ""
-            }
+            error={errorFields.includes("summary")}
           />
         </Box>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleAddOrUpdate}
-          disabled={
-            !newExperience.companyName ||
-            !newExperience.startDate ||
-            !newExperience.positionName ||
-            !newExperience.summary ||
-            (!newExperience.finishDate && !newExperience.currentlyWorking)
-          }
-          startIcon={<AddCircleOutlineIcon />}
-        >
-          {editIndex !== null ? "Update" : "Add"} Experience
-        </Button>
+        <Box display="flex" justifyContent="center">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleAddOrUpdate}
+            disabled={
+              !newExperience.companyName ||
+              !newExperience.startDate ||
+              !newExperience.positionName ||
+              !newExperience.summary ||
+              (!newExperience.finishDate && !newExperience.currentlyWorking)
+            }
+            startIcon={<AddCircleOutlineIcon />}
+          >
+            {editIndex !== null ? "Update" : "Add"} Experience
+          </Button>
+        </Box>
       </Box>
 
       {/* Listing of experiences */}
       {items.length > 0 && (
-        <Typography
-          variant="h6"
-          gutterBottom
-          sx={{ color: "coral", marginTop: "32px" }}
-        >
-          Experience
-        </Typography>
+        <CustomAccordion title="Experience">
+          <List>
+            {items.map((item, index) => (
+              <React.Fragment key={index}>
+                <ListItem
+                  key={index}
+                  secondaryAction={
+                    <Box>
+                      <IconButton
+                        onClick={() => handleEdit(index)}
+                        color="primary"
+                      >
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => handleDelete(index)}
+                        color="error"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Box>
+                  }
+                >
+                  <ListItemText
+                    primary={
+                      <span>
+                        <b>
+                          {item.startDate} -{" "}
+                          {item.currentlyWorking ? "Today" : item.finishDate}
+                        </b>{" "}
+                        {item.companyName}
+                      </span>
+                    }
+                    secondary={item.positionName}
+                  />
+                </ListItem>
+                {index < items.length - 1 && <Divider />}
+              </React.Fragment>
+            ))}
+          </List>
+        </CustomAccordion>
       )}
-      <List>
-        {items.map((item, index) => (
-          <ListItem
-            key={index}
-            secondaryAction={
-              <Box>
-                <IconButton onClick={() => handleEdit(index)} color="primary">
-                  <EditIcon />
-                </IconButton>
-                <IconButton onClick={() => handleDelete(index)} color="error">
-                  <DeleteIcon />
-                </IconButton>
-              </Box>
-            }
-          >
-            <ListItemText
-              primary={`[${item.startDate} - ${item.finishDate}] ${item.companyName}`}
-              secondary={item.positionName}
-            />
-          </ListItem>
-        ))}
-      </List>
     </Box>
   );
 };

@@ -111,3 +111,12 @@ input:-webkit-autofill {
   box-shadow: 0 0 0px 1000px lightblue inset !important;
   color: inherit !important;
 }
+
+.right-align {
+  width: 100%;
+  text-align: right;
+}
+
+.margin-bottom {
+  margin-bottom: 16px;
+}

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Button,
+  Divider,
   IconButton,
   List,
   ListItem,
@@ -24,6 +28,8 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SchoolIcon from "@mui/icons-material/School";
 import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
 import DateSelector from "../DateSelector";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import CustomAccordion from "../CustomAccordion";
 
 const EducationForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -89,19 +95,11 @@ const EducationForm: React.FC = () => {
       <Box display="flex" alignItems="center" gap={4}>
         <Box display="flex" alignItems="center" gap={2}>
           <CalendarMonthIcon style={{ fontSize: 40, color: "coral" }} />
-          {/* <DateSelector onDateChange={handleDateChange("year")} /> */}
-          <TextField
-            value={newEducation.year ? newEducation.year : "Date (mm-YYYY)"}
-            sx={{
-              input: {
-                color: "rgba(0, 0, 0, 0.87)",
-              },
-            }}
-            disabled
-          >
-            {newEducation?.year ? newEducation?.year : "mm-yyyy"}
-          </TextField>
-          <DateSelector onDateChange={handleDateChange("year")} />
+          <DateSelector
+            onDateChange={handleDateChange("year")}
+            selectedDate={newEducation.year}
+            label="Select year/month"
+          />
         </Box>
         <Box display="flex" alignItems="center" gap={2} flex={1}>
           <AssuredWorkloadIcon style={{ fontSize: 40, color: "coral" }} />
@@ -146,36 +144,44 @@ const EducationForm: React.FC = () => {
 
       {/* Listing of education */}
       {items.length > 0 && (
-        <Typography
-          variant="h6"
-          gutterBottom
-          sx={{ color: "coral", marginTop: "32px" }}
-        >
-          Education
-        </Typography>
+        <CustomAccordion title="Education">
+          <List>
+            {items.map((item, index) => (
+              <React.Fragment key={index}>
+                <ListItem
+                  key={index}
+                  secondaryAction={
+                    <Box>
+                      <IconButton
+                        onClick={() => handleEdit(index)}
+                        color="primary"
+                      >
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => handleDelete(index)}
+                        color="error"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Box>
+                  }
+                >
+                  <ListItemText
+                    primary={
+                      <span>
+                        <b>{item.year}</b> {item.center}
+                      </span>
+                    }
+                    secondary={item.degree}
+                  />
+                </ListItem>
+                {index < items.length - 1 && <Divider />}
+              </React.Fragment>
+            ))}
+          </List>
+        </CustomAccordion>
       )}
-      <List>
-        {items.map((item, index) => (
-          <ListItem
-            key={index}
-            secondaryAction={
-              <Box>
-                <IconButton onClick={() => handleEdit(index)} color="primary">
-                  <EditIcon />
-                </IconButton>
-                <IconButton onClick={() => handleDelete(index)} color="error">
-                  <DeleteIcon />
-                </IconButton>
-              </Box>
-            }
-          >
-            <ListItemText
-              primary={`[${item.year}] ${item.center}`}
-              secondary={item.degree}
-            />
-          </ListItem>
-        ))}
-      </List>
     </>
   );
 };

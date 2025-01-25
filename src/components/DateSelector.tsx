@@ -4,20 +4,28 @@ import {
   Button,
   Dialog,
   DialogContent,
-  Grid,
   IconButton,
+  TextField,
   Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import CalendarTodayRoundedIcon from "@mui/icons-material/CalendarTodayRounded";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import { months } from "../constants";
+import { blue } from "@mui/material/colors";
 
 interface DateSelectorProps {
   onDateChange: (date: string) => void; // Callback to return the selected date in MM-YYYY format
+  selectedDate: string;
+  label: string;
 }
 
-const DateSelector: React.FC<DateSelectorProps> = ({ onDateChange }) => {
+const DateSelector: React.FC<DateSelectorProps> = ({
+  onDateChange,
+  selectedDate,
+  label,
+}) => {
   const currentYear = new Date().getFullYear();
   const [open, setOpen] = useState(false);
   const [year, setYear] = useState(currentYear);
@@ -40,9 +48,28 @@ const DateSelector: React.FC<DateSelectorProps> = ({ onDateChange }) => {
   return (
     <Box>
       {/* Button with calendar icon */}
-      <Button variant="contained" onClick={handleOpen}>
+      {/*       <Button variant="contained" onClick={handleOpen}>
         <CalendarTodayRoundedIcon />
-      </Button>
+      </Button> */}
+      <TextField
+        label={label}
+        value={selectedDate || "Click to select"}
+        onClick={handleOpen}
+        sx={{
+          cursor: "pointer", // Makes the entire field clickable
+          "& .MuiInputBase-root": {
+            pointerEvents: "none", // Prevents direct editing
+          },
+          "& .MuiInputBase-input": {
+            cursor: "pointer", // Pointer cursor for the text
+            color: "blue", // Hyperlink-like text color
+            textDecoration: "underline", // Underline to mimic a hyperlink
+          },
+          "& .MuiInputLabel-root": {
+            cursor: "pointer", // Pointer cursor for the label
+          },
+        }}
+      />
 
       {/* Overlay dialog */}
       <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth>
@@ -66,7 +93,7 @@ const DateSelector: React.FC<DateSelectorProps> = ({ onDateChange }) => {
           {/* Months Grid */}
           <Grid container spacing={2}>
             {months.map((month) => (
-              <Grid item xs={4} key={month.value}>
+              <Grid key={month.value} size={{ xs: 4 }}>
                 <Button
                   fullWidth
                   variant="outlined"

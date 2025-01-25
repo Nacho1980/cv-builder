@@ -6,18 +6,21 @@ import {
   Typography,
   FormControl,
   SelectChangeEvent,
+  InputLabel,
 } from "@mui/material";
 import useGetCountries from "../hooks/useGetCountries";
 import { Country } from "../types";
 
 interface CountrySelectorProps {
   handleChangeCountry: (event: SelectChangeEvent<string>) => void;
+  defaultValue: string;
 }
 
 const CountrySelector: React.FC<CountrySelectorProps> = ({
   handleChangeCountry,
+  defaultValue,
 }) => {
-  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState(defaultValue || "");
   const { countries, loading, error } = useGetCountries();
 
   const handleChange = (event: SelectChangeEvent<string>) => {
@@ -31,10 +34,12 @@ const CountrySelector: React.FC<CountrySelectorProps> = ({
   } else if (countries.length > 0) {
     return (
       <Box width="300px">
-        <FormControl fullWidth>
+        <FormControl fullWidth variant="outlined">
+          <InputLabel id="country-select-label">Country</InputLabel>
           <Select
             className="country-select"
             labelId="country-select-label"
+            label="Country"
             value={selectedCountry}
             onChange={handleChange}
             renderValue={(value) => {

@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./App.css";
 import { stepComponents } from "./components/StepComponents";
 import { Avatar, Box, Button, createTheme, ThemeProvider } from "@mui/material";
-import Stepper from "./components/CustomStepper";
 import { MY_LINKEDIN_PROFILE, stepLabels } from "./constants";
 import { useSelector } from "react-redux";
 import { RootState } from "./store/store";
@@ -15,7 +14,9 @@ import CustomStepper from "./components/CustomStepper";
 
 function App() {
   const [currentStep, setCurrentStep] = useState(0);
-  const { isValid } = useSelector((state: RootState) => state.personalData);
+  const { isValid, fields } = useSelector(
+    (state: RootState) => state.personalData
+  );
 
   const theme = createTheme({
     components: {
@@ -129,7 +130,7 @@ function App() {
             onClick={nextStep}
             disabled={
               currentStep === stepComponents.length ||
-              (currentStep === 1 && !isValid)
+              (currentStep === 1 && (!isValid || !fields.country))
             }
           >
             {currentStep === 0 ? "Start" : <ArrowForwardIosIcon />}

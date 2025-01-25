@@ -37,7 +37,9 @@ const personalDataSlice = createSlice({
     },
     validateAllFields: (state) => {
       Object.keys(state.fields).forEach((field) => {
+        console.log("Field: ", field);
         const error = validateField(field, state.fields[field]);
+        console.log("Error: " + error);
         if (error) {
           state.errors[field] = error;
         } else {

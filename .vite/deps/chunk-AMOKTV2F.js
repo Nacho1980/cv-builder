@@ -1,7 +1,5 @@
 import {
-  ClassNameGenerator_default,
   ThemeProvider_default,
-  createBox,
   createBreakpoints,
   createCssVarsProvider,
   createSpacing,
@@ -10,12 +8,10 @@ import {
   createTypography,
   deepmerge,
   defaultTheme_default,
-  generateUtilityClasses,
   identifier_default,
-  require_prop_types,
   styleFunctionSx_default,
   useThemeProps
-} from "./chunk-DO3QCRX7.js";
+} from "./chunk-LMLP6RGP.js";
 import {
   require_jsx_runtime
 } from "./chunk-Y64DX5DL.js";
@@ -25,9 +21,6 @@ import {
 import {
   __toESM
 } from "./chunk-2TUXWMP5.js";
-
-// node_modules/@mui/material/Box/Box.js
-var import_prop_types = __toESM(require_prop_types());
 
 // node_modules/@mui/material/styles/adaptV4Theme.js
 function adaptV4Theme(inputTheme) {
@@ -272,30 +265,12 @@ function useThemeProps2({
   });
 }
 
-// node_modules/@mui/material/styles/ThemeProvider.js
-var React4 = __toESM(require_react());
-
-// node_modules/@mui/material/styles/ThemeProviderNoVars.js
-var React = __toESM(require_react());
-var import_jsx_runtime = __toESM(require_jsx_runtime());
-function ThemeProviderNoVars({
-  theme: themeInput,
-  ...props
-}) {
-  const scopedTheme = identifier_default in themeInput ? themeInput[identifier_default] : void 0;
-  return (0, import_jsx_runtime.jsx)(ThemeProvider_default, {
-    ...props,
-    themeId: scopedTheme ? identifier_default : void 0,
-    theme: scopedTheme || themeInput
-  });
-}
-
 // node_modules/@mui/material/styles/ThemeProviderWithVars.js
-var React3 = __toESM(require_react());
+var React2 = __toESM(require_react());
 
 // node_modules/@mui/material/InitColorSchemeScript/InitColorSchemeScript.js
-var React2 = __toESM(require_react());
-var import_jsx_runtime2 = __toESM(require_jsx_runtime());
+var React = __toESM(require_react());
+var import_jsx_runtime = __toESM(require_jsx_runtime());
 var defaultConfig = {
   attribute: "data-mui-color-scheme",
   colorSchemeStorageKey: "mui-color-scheme",
@@ -305,7 +280,7 @@ var defaultConfig = {
 };
 
 // node_modules/@mui/material/styles/ThemeProviderWithVars.js
-var import_jsx_runtime3 = __toESM(require_jsx_runtime());
+var import_jsx_runtime2 = __toESM(require_jsx_runtime());
 var {
   CssVarsProvider: InternalCssVarsProvider,
   useColorScheme,
@@ -344,7 +319,7 @@ function Experimental_CssVarsProvider(props) {
       warnedOnce2 = true;
     }
   }
-  return (0, import_jsx_runtime3.jsx)(InternalCssVarsProvider, {
+  return (0, import_jsx_runtime2.jsx)(InternalCssVarsProvider, {
     ...props
   });
 }
@@ -357,6 +332,24 @@ var getInitColorSchemeScript = (params) => {
   return deprecatedGetInitColorSchemeScript(params);
 };
 var CssVarsProvider = InternalCssVarsProvider;
+
+// node_modules/@mui/material/styles/ThemeProvider.js
+var React4 = __toESM(require_react());
+
+// node_modules/@mui/material/styles/ThemeProviderNoVars.js
+var React3 = __toESM(require_react());
+var import_jsx_runtime3 = __toESM(require_jsx_runtime());
+function ThemeProviderNoVars({
+  theme: themeInput,
+  ...props
+}) {
+  const scopedTheme = identifier_default in themeInput ? themeInput[identifier_default] : void 0;
+  return (0, import_jsx_runtime3.jsx)(ThemeProvider_default, {
+    ...props,
+    themeId: scopedTheme ? identifier_default : void 0,
+    theme: scopedTheme || themeInput
+  });
+}
 
 // node_modules/@mui/material/styles/ThemeProvider.js
 var import_jsx_runtime4 = __toESM(require_jsx_runtime());
@@ -413,39 +406,6 @@ function experimental_sx() {
   throw new Error(true ? "MUI: The `experimental_sx` has been moved to `theme.unstable_sx`.For more details, see https://github.com/mui/material-ui/pull/35150." : formatMuiErrorMessage(19));
 }
 
-// node_modules/@mui/material/Box/boxClasses.js
-var boxClasses = generateUtilityClasses("MuiBox", ["root"]);
-var boxClasses_default = boxClasses;
-
-// node_modules/@mui/material/Box/Box.js
-var defaultTheme = createTheme();
-var Box = createBox({
-  themeId: identifier_default,
-  defaultTheme,
-  defaultClassName: boxClasses_default.root,
-  generateClassName: ClassNameGenerator_default.generate
-});
-true ? Box.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * @ignore
-   */
-  children: import_prop_types.default.node,
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: import_prop_types.default.elementType,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types.default.oneOfType([import_prop_types.default.arrayOf(import_prop_types.default.oneOfType([import_prop_types.default.func, import_prop_types.default.object, import_prop_types.default.bool])), import_prop_types.default.func, import_prop_types.default.object])
-} : void 0;
-var Box_default = Box;
-
 export {
   adaptV4Theme,
   createMuiStrictModeTheme,
@@ -463,8 +423,6 @@ export {
   withStyles,
   withTheme,
   deprecatedExtendTheme,
-  experimental_sx,
-  boxClasses_default,
-  Box_default
+  experimental_sx
 };
-//# sourceMappingURL=chunk-2LUAGMH4.js.map
+//# sourceMappingURL=chunk-AMOKTV2F.js.map

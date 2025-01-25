@@ -1,12 +1,16 @@
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
-import { LanguageItem } from "../../types";
+import { getLevelText } from "../../utils";
 
 export const Template1Column = ({
   data,
   color,
+  bgColor,
+  headingColor,
 }: {
   data: any;
   color: string;
+  bgColor: string;
+  headingColor: string;
 }) => {
   const styles = StyleSheet.create({
     page: {
@@ -14,17 +18,26 @@ export const Template1Column = ({
       fontSize: 12,
       lineHeight: 1.5,
       color: color,
+      backgroundColor: bgColor,
+    },
+    title: {
+      fontSize: 32,
     },
     section: {
       marginBottom: 20,
       paddingBottom: 10,
-      borderBottom: "1px solid #ccc",
+    },
+    sectionWithBorderBottom: {
+      marginBottom: 20,
+      paddingBottom: 10,
+      borderBottom: `1px solid ${headingColor}`,
     },
     heading: {
       fontSize: 16,
       marginBottom: 10,
-      fontWeight: "bold",
-      color: "#000",
+      fontWeight: 300,
+      color: headingColor,
+      borderBottom: `1px solid ${headingColor}`,
     },
     text: {
       marginBottom: 5,
@@ -44,21 +57,24 @@ export const Template1Column = ({
       <Page size="A4" style={styles.page}>
         {/* Personal Data Section */}
         <View style={styles.section}>
-          <Text style={styles.heading}>Personal Data</Text>
-          <Text style={styles.text}>Name: {data.personalData.fullName}</Text>
-          <Text style={styles.text}>Email: {data.personalData.email}</Text>
+          <Text style={styles.title}>{data.personalData.fields.fullName}</Text>
+        </View>
+        <View style={styles.section}>
           <Text style={styles.text}>
-            Telephone: {data.personalData.telephone}
+            Email: {data.personalData.fields.email}
           </Text>
           <Text style={styles.text}>
-            Location: {data.personalData.city} ({data.personalData.country})
+            Telephone: {data.personalData.fields.telephone}
+          </Text>
+          <Text style={styles.text}>
+            Location: {data.personalData.fields.city} (
+            {data.personalData.fields.country})
           </Text>
         </View>
 
         {/* Summary Section */}
         {data.optionalData?.summary && (
           <View style={styles.section}>
-            <Text style={styles.heading}>Summary</Text>
             <Text style={styles.text}>{data.optionalData?.summary}</Text>
           </View>
         )}
@@ -93,8 +109,8 @@ export const Template1Column = ({
               <View key={index} style={styles.text}>
                 <Text style={styles.text}>
                   {exp.currentlyWorking
-                    ? `{exp.startDate} - (today) at {exp.companyName}`
-                    : `{exp.startDate} - {exp.finishDate} at {exp.companyName}`}
+                    ? `${exp.startDate} - (today) at ${exp.companyName}`
+                    : `${exp.startDate} - ${exp.finishDate} at ${exp.companyName}`}
                 </Text>
                 <Text style={styles.text}>Position: {exp.positionName}</Text>
                 <Text style={styles.text}>{exp.summary}</Text>
@@ -125,9 +141,12 @@ export const Template1Column = ({
           <View style={styles.section}>
             <Text style={styles.heading}>Languages</Text>
             {data.optionalData.languages.map(
-              (language: LanguageItem, index: number) => (
+              (
+                language: { language: string; level: number },
+                index: number
+              ) => (
                 <Text key={index} style={styles.listItem}>
-                  • {language.language} - Level: {language.level}
+                  • {language.language} - Level: {getLevelText(language.level)}
                 </Text>
               )
             )}

@@ -81,7 +81,10 @@ const PersonalInfoForm: React.FC = () => {
             onBlur={handleBlur("city")}
             error={!!errors.city}
           />
-          <CountrySelector handleChangeCountry={handleChangeCountry} />
+          <CountrySelector
+            handleChangeCountry={handleChangeCountry}
+            defaultValue={fields.country}
+          />
         </Box>
         <Box display="flex" alignItems="center" gap={2}>
           <AodRoundedIcon style={{ fontSize: 40, color: "coral" }} />

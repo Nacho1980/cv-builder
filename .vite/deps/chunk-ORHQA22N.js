@@ -1,6 +1,8 @@
 import {
+  useDefaultProps
+} from "./chunk-MJW2WNW5.js";
+import {
   ClassNameGenerator_default,
-  DefaultPropsProvider_default,
   GlobalStyles_default,
   capitalize,
   clsx_default,
@@ -16,19 +18,17 @@ import {
   isMuiElement,
   ownerDocument,
   ownerWindow,
-  requirePropFactory,
   require_prop_types,
   setRef,
   styled_default,
   unstable_memoTheme,
   unsupportedProp,
   useControlled,
-  useDefaultProps,
   useEnhancedEffect_default,
   useEventCallback_default,
   useForkRef,
   useId
-} from "./chunk-DO3QCRX7.js";
+} from "./chunk-LMLP6RGP.js";
 import {
   require_jsx_runtime
 } from "./chunk-Y64DX5DL.js";
@@ -80,8 +80,8 @@ var svgIconClasses = generateUtilityClasses("MuiSvgIcon", ["root", "colorPrimary
 var svgIconClasses_default = svgIconClasses;
 
 // node_modules/@mui/material/SvgIcon/SvgIcon.js
-var React4 = __toESM(require_react());
-var import_prop_types3 = __toESM(require_prop_types());
+var React3 = __toESM(require_react());
+var import_prop_types2 = __toESM(require_prop_types());
 
 // node_modules/@mui/material/zero-styled/index.js
 var React2 = __toESM(require_react());
@@ -103,35 +103,8 @@ function internal_createExtendSxProp() {
   return extendSxProp;
 }
 
-// node_modules/@mui/material/DefaultPropsProvider/DefaultPropsProvider.js
-var React3 = __toESM(require_react());
-var import_prop_types2 = __toESM(require_prop_types());
-var import_jsx_runtime3 = __toESM(require_jsx_runtime());
-function DefaultPropsProvider(props) {
-  return (0, import_jsx_runtime3.jsx)(DefaultPropsProvider_default, {
-    ...props
-  });
-}
-true ? DefaultPropsProvider.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │ To update them, edit the TypeScript types and run `pnpm proptypes`. │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * @ignore
-   */
-  children: import_prop_types2.default.node,
-  /**
-   * @ignore
-   */
-  value: import_prop_types2.default.object.isRequired
-} : void 0;
-function useDefaultProps2(params) {
-  return useDefaultProps(params);
-}
-
 // node_modules/@mui/material/SvgIcon/SvgIcon.js
-var import_jsx_runtime4 = __toESM(require_jsx_runtime());
+var import_jsx_runtime3 = __toESM(require_jsx_runtime());
 var useUtilityClasses = (ownerState) => {
   const {
     color,
@@ -245,8 +218,8 @@ var SvgIconRoot = styled_default("svg", {
     ]
   };
 }));
-var SvgIcon = React4.forwardRef(function SvgIcon2(inProps, ref) {
-  const props = useDefaultProps2({
+var SvgIcon = React3.forwardRef(function SvgIcon2(inProps, ref) {
+  const props = useDefaultProps({
     props: inProps,
     name: "MuiSvgIcon"
   });
@@ -262,7 +235,7 @@ var SvgIcon = React4.forwardRef(function SvgIcon2(inProps, ref) {
     viewBox = "0 0 24 24",
     ...other
   } = props;
-  const hasSvgAsChild = React4.isValidElement(children) && children.type === "svg";
+  const hasSvgAsChild = React3.isValidElement(children) && children.type === "svg";
   const ownerState = {
     ...props,
     color,
@@ -278,7 +251,7 @@ var SvgIcon = React4.forwardRef(function SvgIcon2(inProps, ref) {
     more.viewBox = viewBox;
   }
   const classes = useUtilityClasses(ownerState);
-  return (0, import_jsx_runtime4.jsxs)(SvgIconRoot, {
+  return (0, import_jsx_runtime3.jsxs)(SvgIconRoot, {
     as: component,
     className: clsx_default(classes.root, className),
     focusable: "false",
@@ -290,7 +263,7 @@ var SvgIcon = React4.forwardRef(function SvgIcon2(inProps, ref) {
     ...other,
     ...hasSvgAsChild && children.props,
     ownerState,
-    children: [hasSvgAsChild ? children.props.children : children, titleAccess ? (0, import_jsx_runtime4.jsx)("title", {
+    children: [hasSvgAsChild ? children.props.children : children, titleAccess ? (0, import_jsx_runtime3.jsx)("title", {
       children: titleAccess
     }) : null]
   });
@@ -303,15 +276,15 @@ true ? SvgIcon.propTypes = {
   /**
    * Node passed into the SVG element.
    */
-  children: import_prop_types3.default.node,
+  children: import_prop_types2.default.node,
   /**
    * Override or extend the styles applied to the component.
    */
-  classes: import_prop_types3.default.object,
+  classes: import_prop_types2.default.object,
   /**
    * @ignore
    */
-  className: import_prop_types3.default.string,
+  className: import_prop_types2.default.string,
   /**
    * The color of the component.
    * It supports both default and custom theme colors, which can be added as shown in the
@@ -319,21 +292,21 @@ true ? SvgIcon.propTypes = {
    * You can use the `htmlColor` prop to apply a color attribute to the SVG element.
    * @default 'inherit'
    */
-  color: import_prop_types3.default.oneOfType([import_prop_types3.default.oneOf(["inherit", "action", "disabled", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types3.default.string]),
+  color: import_prop_types2.default.oneOfType([import_prop_types2.default.oneOf(["inherit", "action", "disabled", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types2.default.string]),
   /**
    * The component used for the root node.
    * Either a string to use a HTML element or a component.
    */
-  component: import_prop_types3.default.elementType,
+  component: import_prop_types2.default.elementType,
   /**
    * The fontSize applied to the icon. Defaults to 24px, but can be configure to inherit font size.
    * @default 'medium'
    */
-  fontSize: import_prop_types3.default.oneOfType([import_prop_types3.default.oneOf(["inherit", "large", "medium", "small"]), import_prop_types3.default.string]),
+  fontSize: import_prop_types2.default.oneOfType([import_prop_types2.default.oneOf(["inherit", "large", "medium", "small"]), import_prop_types2.default.string]),
   /**
    * Applies a color attribute to the SVG element.
    */
-  htmlColor: import_prop_types3.default.string,
+  htmlColor: import_prop_types2.default.string,
   /**
    * If `true`, the root node will inherit the custom `component`'s viewBox and the `viewBox`
    * prop will be ignored.
@@ -341,22 +314,22 @@ true ? SvgIcon.propTypes = {
    * `component`'s viewBox to the root node.
    * @default false
    */
-  inheritViewBox: import_prop_types3.default.bool,
+  inheritViewBox: import_prop_types2.default.bool,
   /**
    * The shape-rendering attribute. The behavior of the different options is described on the
    * [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering).
    * If you are having issues with blurry icons you should investigate this prop.
    */
-  shapeRendering: import_prop_types3.default.string,
+  shapeRendering: import_prop_types2.default.string,
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: import_prop_types3.default.oneOfType([import_prop_types3.default.arrayOf(import_prop_types3.default.oneOfType([import_prop_types3.default.func, import_prop_types3.default.object, import_prop_types3.default.bool])), import_prop_types3.default.func, import_prop_types3.default.object]),
+  sx: import_prop_types2.default.oneOfType([import_prop_types2.default.arrayOf(import_prop_types2.default.oneOfType([import_prop_types2.default.func, import_prop_types2.default.object, import_prop_types2.default.bool])), import_prop_types2.default.func, import_prop_types2.default.object]),
   /**
    * Provides a human-readable title for the element that contains it.
    * https://www.w3.org/TR/SVG-access/#Equivalent
    */
-  titleAccess: import_prop_types3.default.string,
+  titleAccess: import_prop_types2.default.string,
   /**
    * Allows you to redefine what the coordinates without units mean inside an SVG element.
    * For example, if the SVG element is 500 (width) by 200 (height),
@@ -365,17 +338,17 @@ true ? SvgIcon.propTypes = {
    * to bottom right (50,20) and each unit will be worth 10px.
    * @default '0 0 24 24'
    */
-  viewBox: import_prop_types3.default.string
+  viewBox: import_prop_types2.default.string
 } : void 0;
 SvgIcon.muiName = "SvgIcon";
 var SvgIcon_default = SvgIcon;
 
 // node_modules/@mui/material/utils/createSvgIcon.js
-var React5 = __toESM(require_react());
-var import_jsx_runtime5 = __toESM(require_jsx_runtime());
+var React4 = __toESM(require_react());
+var import_jsx_runtime4 = __toESM(require_jsx_runtime());
 function createSvgIcon(path, displayName) {
   function Component(props, ref) {
-    return (0, import_jsx_runtime5.jsx)(SvgIcon_default, {
+    return (0, import_jsx_runtime4.jsx)(SvgIcon_default, {
       "data-testid": `${displayName}Icon`,
       ref,
       ...props,
@@ -386,7 +359,7 @@ function createSvgIcon(path, displayName) {
     Component.displayName = `${displayName}Icon`;
   }
   Component.muiName = SvgIcon_default.muiName;
-  return React5.memo(React5.forwardRef(Component));
+  return React4.memo(React4.forwardRef(Component));
 }
 
 // node_modules/@mui/material/utils/debounce.js
@@ -403,9 +376,6 @@ var ownerDocument_default = ownerDocument;
 
 // node_modules/@mui/material/utils/ownerWindow.js
 var ownerWindow_default = ownerWindow;
-
-// node_modules/@mui/material/utils/requirePropFactory.js
-var requirePropFactory_default = requirePropFactory;
 
 // node_modules/@mui/material/utils/setRef.js
 var setRef_default = setRef;
@@ -489,7 +459,6 @@ export {
   globalCss,
   internal_createExtendSxProp,
   memoTheme_default,
-  useDefaultProps2 as useDefaultProps,
   getSvgIconUtilityClass,
   svgIconClasses_default,
   SvgIcon_default,
@@ -499,7 +468,6 @@ export {
   isMuiElement_default,
   ownerDocument_default,
   ownerWindow_default,
-  requirePropFactory_default,
   setRef_default,
   useEnhancedEffect_default2 as useEnhancedEffect_default,
   useId_default,
@@ -510,4 +478,4 @@ export {
   mergeSlotProps,
   unstable_ClassNameGenerator
 };
-//# sourceMappingURL=chunk-ULTVRLTY.js.map
+//# sourceMappingURL=chunk-ORHQA22N.js.map
