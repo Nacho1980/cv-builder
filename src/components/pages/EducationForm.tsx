@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import SchoolIcon from "@mui/icons-material/School";
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
   Button,
   Divider,
@@ -11,25 +13,19 @@ import {
   ListItem,
   ListItemText,
   TextField,
-  Typography,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../store/store";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addEducation,
-  updateEducation,
   removeEducation,
+  updateEducation,
   validateEducation,
 } from "../../reducers/educationSlice";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import SchoolIcon from "@mui/icons-material/School";
-import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
-import DateSelector from "../DateSelector";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { RootState } from "../../store/store";
+import { isLaterThanToday } from "../../utils";
 import CustomAccordion from "../CustomAccordion";
+import DateSelector from "../DateSelector";
 
 const EducationForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -99,6 +95,7 @@ const EducationForm: React.FC = () => {
             onDateChange={handleDateChange("year")}
             selectedDate={newEducation.year}
             label="Select year/month"
+            error={isLaterThanToday(newEducation.year)}
           />
         </Box>
         <Box display="flex" alignItems="center" gap={2} flex={1}>

@@ -1,24 +1,18 @@
-import React from "react";
-import {
-  TextField,
-  Button,
-  Box,
-  Modal,
-  SelectChangeEvent,
-  Typography,
-  FormHelperText,
-} from "@mui/material";
-import AodRoundedIcon from "@mui/icons-material/AodRounded";
 import AlternateEmailRoundedIcon from "@mui/icons-material/AlternateEmailRounded";
+import AodRoundedIcon from "@mui/icons-material/AodRounded";
 import ApartmentRoundedIcon from "@mui/icons-material/ApartmentRounded";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
-import CountrySelector from "../CountrySelector";
+import { Box, SelectChangeEvent, TextField } from "@mui/material";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import useGetCountries from "../../hooks/useGetCountries";
 import { updateField } from "../../reducers/personalDataSlice";
+import { RootState } from "../../store/store";
+import CountrySelector from "../CountrySelector";
 
 const PersonalInfoForm: React.FC = () => {
   const dispatch = useDispatch();
+  const { countries } = useGetCountries();
   const { fields, errors } = useSelector(
     (state: RootState) => state.personalData
   );
@@ -35,7 +29,9 @@ const PersonalInfoForm: React.FC = () => {
   };
 
   const handleChangeCountry = (event: SelectChangeEvent<string>) => {
-    dispatch(updateField({ field: "country", value: event.target.value }));
+    const countryLabel =
+      countries.find((c) => c.code === event.target.value)?.label || "";
+    dispatch(updateField({ field: "country", value: countryLabel }));
   };
 
   return (

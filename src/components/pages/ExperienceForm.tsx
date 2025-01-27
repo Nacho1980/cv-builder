@@ -24,7 +24,7 @@ import {
   validateExperience,
 } from "../../reducers/experienceSlice";
 import { RootState } from "../../store/store";
-import { compareDatesMMYYYY } from "../../utils";
+import { compareDatesMMYYYY, isLaterThanToday } from "../../utils";
 import CustomAccordion from "../CustomAccordion";
 import DateSelector from "../DateSelector";
 const ExperienceForm: React.FC = () => {
@@ -107,11 +107,11 @@ const ExperienceForm: React.FC = () => {
   };
 
   return (
-    <Box>
+    <>
       <Box className="page-header">Work experience</Box>
 
       {/* Add a new experience item or edit an existing one */}
-      <Box display="flex" flexDirection="column" gap={2} mb={3}>
+      <Box display="flex" flexDirection="column" gap={2}>
         <Box display="flex" flexDirection="row" alignItems="center" gap={2}>
           <CalendarMonthIcon style={{ fontSize: 40, color: "coral" }} />
           <Box display="flex" alignItems="center" gap={2}>
@@ -119,6 +119,7 @@ const ExperienceForm: React.FC = () => {
               label="Start date"
               onDateChange={handleDateChange("startDate")}
               selectedDate={newExperience.startDate}
+              error={isLaterThanToday(newExperience.startDate)}
             />
           </Box>
           {newExperience.currentlyWorking === false && (
@@ -128,12 +129,13 @@ const ExperienceForm: React.FC = () => {
                 onDateChange={handleDateChange("finishDate")}
                 selectedDate={newExperience.finishDate}
                 error={
-                  !!newExperience.startDate &&
-                  !!newExperience.finishDate &&
-                  compareDatesMMYYYY(
-                    newExperience.startDate,
-                    newExperience.finishDate
-                  ) >= 0
+                  isLaterThanToday(newExperience.finishDate) ||
+                  (!!newExperience.startDate &&
+                    !!newExperience.finishDate &&
+                    compareDatesMMYYYY(
+                      newExperience.startDate,
+                      newExperience.finishDate
+                    ) >= 0)
                 }
               />
             </Box>
@@ -250,7 +252,7 @@ const ExperienceForm: React.FC = () => {
           </List>
         </CustomAccordion>
       )}
-    </Box>
+    </>
   );
 };
 

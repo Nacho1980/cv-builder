@@ -33,3 +33,27 @@ export const compareDatesMMYYYY = (date1: string, date2: string) => {
     }
   }
 };
+
+export const isLaterThanToday = (dateMMYYYY: string) => {
+  if (!dateMMYYYY) {
+    return false;
+  }
+  const today = new Date();
+  const currentMonth = today.getMonth(); // 0-11
+  const currentYear = today.getFullYear();
+
+  // Parse the input date string (mm-YYYY)
+  const [month, year] = dateMMYYYY.split("-").map(Number);
+
+  // Compare year first
+  if (year > currentYear) {
+    return true;
+  }
+
+  // If the years are the same, compare the month
+  if (year === currentYear && month > currentMonth + 1) {
+    return true;
+  }
+
+  return false;
+};

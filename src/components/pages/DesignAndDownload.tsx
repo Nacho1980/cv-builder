@@ -4,10 +4,10 @@ import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { TemplateTypes } from "../constants";
-import { RootState } from "../store/store";
-import ColorSelector from "./ColorSelector";
-import { Template } from "./templates/Template";
+import { TemplateTypes } from "../../constants";
+import { RootState } from "../../store/store";
+import ColorSelector from "../ColorSelector";
+import { Template } from "../templates/Template";
 
 const DesignAndDownload: React.FC = () => {
   const data = useSelector((state: RootState) => state); // Retrieve data from Redux

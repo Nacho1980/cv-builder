@@ -10,7 +10,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 100vw;
+  /* width: 100vw; */
+  width: 100%;
 }
 
 a {

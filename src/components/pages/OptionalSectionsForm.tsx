@@ -29,6 +29,8 @@ import CustomAccordion from "../CustomAccordion";
 import DiscreteSlider from "../DiscreteSlider";
 
 const OptionalSectionsForm: React.FC = () => {
+  const requiredFields = ["summary"];
+  const [errorFields, setErrorFields] = useState<string[]>([]);
   const dispatch = useDispatch();
   const { summary, languages, skills } = useSelector(
     (state: RootState) => state.optionalData
@@ -89,12 +91,23 @@ const OptionalSectionsForm: React.FC = () => {
     dispatch(removeSkill(index));
   };
 
+  // Action creator for validating the required field when leaving the field
+  const handleBlur = (field: string) => () => {
+    if (requiredFields.includes(field)) {
+      if (summary === "" && !errorFields.includes(field)) {
+        setErrorFields([...errorFields, field]);
+      } else if (errorFields.includes(field) && summary.trim().length > 0) {
+        setErrorFields(errorFields.filter((f) => f !== field));
+      }
+    }
+  };
+
   return (
-    <Box>
-      <Box className="page-header">(Optional) Summary | Skills | Languages</Box>
+    <>
+      <Box className="page-header">Summary | Skills | Languages</Box>
 
       {/* Summary */}
-      <Box display="flex" flexDirection="column" gap={2} mb={3}>
+      <Box display="flex" flexDirection="column" gap={2} mb={2}>
         <TextField
           label="Summary"
           value={summary}
@@ -103,71 +116,68 @@ const OptionalSectionsForm: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             handleChangeSummary(e)
           }
+          onBlur={handleBlur("summary")}
           fullWidth
+          error={errorFields.includes("summary")}
         />
       </Box>
 
       {/* Add a new skill */}
-      <Box display="flex" gap={2} mb={3} mt={6}>
-        <EngineeringIcon style={{ fontSize: 40, color: "coral" }} />
-        <TextField
-          label="Skill"
-          value={newSkill}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setNewSkill(e.target.value)
-          }
-          fullWidth
-        />
-      </Box>
-      <Box display="flex" justifyContent="center" mb={3}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleAddSkill}
-          disabled={!newSkill}
-          startIcon={<AddCircleOutlineIcon />}
-        >
-          Add skill
-        </Button>
-      </Box>
+      <Box mb={2} display="flex" flexDirection="column" gap={2}>
+        <Box display="flex" gap={2}>
+          <EngineeringIcon style={{ fontSize: 40, color: "coral" }} />
+          <TextField
+            label="Skill"
+            value={newSkill}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setNewSkill(e.target.value)
+            }
+            fullWidth
+          />
+        </Box>
+        <Box display="flex" justifyContent="center">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleAddSkill}
+            disabled={!newSkill}
+            startIcon={<AddCircleOutlineIcon />}
+          >
+            Add skill
+          </Button>
+        </Box>
 
-      {/* Listing of skills */}
-      {skills.length > 0 && (
-        <CustomAccordion title="Skills">
-          <List>
-            {skills.map((skill, index) => (
-              <React.Fragment key={index}>
-                <ListItem
-                  key={index}
-                  secondaryAction={
-                    <Box>
-                      <IconButton
-                        onClick={() => handleDeleteSkill(index)}
-                        color="error"
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Box>
-                  }
-                >
-                  <ListItemText primary={`${skill}`} />
-                  {index < skills.length - 1 && <Divider />}
-                </ListItem>
-              </React.Fragment>
-            ))}
-          </List>
-        </CustomAccordion>
-      )}
+        {/* Listing of skills */}
+        {skills.length > 0 && (
+          <CustomAccordion title="Skills">
+            <List>
+              {skills.map((skill, index) => (
+                <React.Fragment key={index}>
+                  <ListItem
+                    key={index}
+                    secondaryAction={
+                      <Box>
+                        <IconButton
+                          onClick={() => handleDeleteSkill(index)}
+                          color="error"
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Box>
+                    }
+                  >
+                    <ListItemText primary={`${skill}`} />
+                    {index < skills.length - 1 && <Divider />}
+                  </ListItem>
+                </React.Fragment>
+              ))}
+            </List>
+          </CustomAccordion>
+        )}
+      </Box>
 
       {/* Add a new language */}
-      <Box
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
-        gap={2}
-        mb={3}
-        mt={6}
-      >
+      <Box display="flex" flexDirection="row" alignItems="center" gap={2}>
         <TranslateIcon style={{ fontSize: 40, color: "coral" }} />
         <TextField
           label="Language"
@@ -231,7 +241,7 @@ const OptionalSectionsForm: React.FC = () => {
           </List>
         </CustomAccordion>
       )}
-    </Box>
+    </>
   );
 };
 

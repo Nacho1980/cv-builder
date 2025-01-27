@@ -1,11 +1,28 @@
+import DesignAndDownload from "./components/pages/DesignAndDownload";
+import EducationForm from "./components/pages/EducationForm";
+import ExperienceForm from "./components/pages/ExperienceForm";
+import OptionalSectionsForm from "./components/pages/OptionalSectionsForm";
+import PersonalInfoForm from "./components/pages/PersonalInfoForm";
 import { Step } from "./types";
 
 export const stepLabels: Step[] = [
   { value: 1, label: "Personal Info" },
   { value: 2, label: "Education" },
   { value: 3, label: "Work Experience" },
-  { value: 4, label: "Optional" },
+  { value: 4, label: "Additional" },
   { value: 5, label: "Customize design" },
+];
+interface StepComponent {
+  step: number;
+  component: React.FC;
+}
+
+export const stepComponents: StepComponent[] = [
+  { step: 1, component: PersonalInfoForm },
+  { step: 2, component: EducationForm },
+  { step: 3, component: ExperienceForm },
+  { step: 4, component: OptionalSectionsForm },
+  { step: 5, component: DesignAndDownload },
 ];
 export interface FormState {
   fields: { [key: string]: string }; // Field values

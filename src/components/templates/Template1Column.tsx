@@ -25,7 +25,10 @@ export const Template1Column = ({
       whiteSpace: "normal", // Allows text to wrap normally
       overflowWrap: "break-word", // Prevents word breaks
       wordWrap: "normal", // Ensures no word wrapping happens
-      lineHeight: 1.5, // Ensures proper line spacing between lines
+      lineHeight: 1.2, // Ensures proper line spacing between lines
+      paddingTop: 10,
+      paddingBottom: 10,
+      paddingLeft: 10,
     },
     section: {
       marginBottom: 20,
@@ -50,6 +53,9 @@ export const Template1Column = ({
     text: {
       marginBottom: 5,
     },
+    bold: {
+      fontWeight: "bold",
+    },
     listItem: {
       marginLeft: 10,
     },
@@ -66,16 +72,24 @@ export const Template1Column = ({
     },
   });
 
+  const hyphenationCallback = (word: string) => {
+    // Simply return the word unchanged to avoid any breaks
+    return [word];
+  };
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         {/* Personal Data Section */}
         <View style={styles.outlinedSection}>
-          <Text style={styles.title}>{data.personalData.fields.fullName}</Text>
+          <Text style={styles.title} hyphenationCallback={hyphenationCallback}>
+            {data.personalData.fields.fullName}
+          </Text>
         </View>
         <View style={styles.section}>
           <Text style={styles.text}>
-            Email: {data.personalData.fields.email}
+            <Text style={styles.bold}> Email:</Text>{" "}
+            {data.personalData.fields.email}
           </Text>
           <Text style={styles.text}>
             Telephone: {data.personalData.fields.telephone}

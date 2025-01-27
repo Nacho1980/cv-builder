@@ -1,3 +1,6 @@
+/* This being a small project with not that much styling,
+it was decided to use a single css file  */
+
 .main-header {
   margin: 32px;
   display: flex;

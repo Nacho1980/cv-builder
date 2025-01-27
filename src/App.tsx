@@ -1,22 +1,22 @@
-import { useState } from "react";
-import "./App.css";
-import { stepComponents } from "./components/StepComponents";
-import { Avatar, Box, Button, createTheme, ThemeProvider } from "@mui/material";
-import { MY_LINKEDIN_PROFILE, stepLabels } from "./constants";
-import { useSelector } from "react-redux";
-import { RootState } from "./store/store";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import Looks3Icon from "@mui/icons-material/Looks3";
 import LooksOneIcon from "@mui/icons-material/LooksOne";
 import LooksTwoIcon from "@mui/icons-material/LooksTwo";
-import Looks3Icon from "@mui/icons-material/Looks3";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { Avatar, Button, createTheme, ThemeProvider } from "@mui/material";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import "./App.css";
 import CustomStepper from "./components/CustomStepper";
+import { MY_LINKEDIN_PROFILE, stepComponents, stepLabels } from "./constants";
+import { RootState } from "./store/store";
 
 function App() {
   const [currentStep, setCurrentStep] = useState(0);
   const { isValid, fields } = useSelector(
     (state: RootState) => state.personalData
   );
+  const { summary } = useSelector((state: RootState) => state.optionalData);
 
   const theme = createTheme({
     components: {
@@ -46,6 +46,20 @@ function App() {
     if (currentStep > 1) setCurrentStep((prev) => prev - 1);
   };
 
+  const isNextBtnDisabled = () => {
+    return (
+      currentStep === stepComponents.length ||
+      (currentStep === 1 &&
+        (!isValid ||
+          !fields.country ||
+          !fields.fullName ||
+          !fields.email ||
+          !fields.city ||
+          !fields.telephone)) ||
+      (currentStep === 4 && !summary)
+    );
+  };
+
   console.log("isValid:", isValid);
   return (
     <ThemeProvider theme={theme}>
@@ -62,7 +76,7 @@ function App() {
             </Avatar>
             <h1>Welcome to the CV Builder</h1>
             <div className="paragraph">
-              Create a professional CV in a few simple steps:
+              Create and download your CV in PDF in a few simple steps:
             </div>
             <div className="paragraph space-between">
               <div>
@@ -129,16 +143,7 @@ function App() {
           <Button
             variant="contained"
             onClick={nextStep}
-            disabled={
-              currentStep === stepComponents.length ||
-              (currentStep === 1 &&
-                (!isValid ||
-                  !fields.country ||
-                  !fields.fullName ||
-                  !fields.email ||
-                  !fields.city ||
-                  !fields.telephone))
-            }
+            disabled={isNextBtnDisabled()}
           >
             {currentStep === 0 ? "Start" : <ArrowForwardIosIcon />}
           </Button>

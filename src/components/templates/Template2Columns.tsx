@@ -24,10 +24,12 @@ export const Template2Columns = ({
       flexDirection: "row",
     },
     title: {
-      fontSize: 32,
+      fontSize: 30,
+      wordBreak: "keep-all", // Disables word breaking
+      // overflow: "hidden", // Prevents overflow
       whiteSpace: "normal", // Allows text to wrap normally
-      overflowWrap: "break-word", // Prevents word breaks
-      wordWrap: "normal", // Ensures no word wrapping happens
+      // overflowWrap: "break-word", // Prevents word breaks
+      // wordWrap: "normal", // Ensures no word wrapping happens
       lineHeight: 1.5, // Ensures proper line spacing between lines
     },
     leftColumn: {
@@ -42,10 +44,13 @@ export const Template2Columns = ({
     section: {
       marginBottom: 20,
       paddingBottom: 10,
+      paddingTop: 10,
+      overflow: "hidden", // Prevents content overflow
     },
     outlinedSection: {
       marginBottom: 20,
       backgroundColor: headingColor,
+      overflow: "hidden", // Prevents content overflow
     },
     sectionWithBorderBottom: {
       marginBottom: 20,
@@ -63,7 +68,7 @@ export const Template2Columns = ({
       fontSize: 16,
       marginBottom: 10,
       fontWeight: "bold",
-      color: "#FFFFFF",
+      color: bgColor,
       borderBottom: `1px solid ${headingColor}`,
     },
     text: {
@@ -80,6 +85,11 @@ export const Template2Columns = ({
     },
   });
 
+  const hyphenationCallback = (word: string) => {
+    // Simply return the word unchanged to avoid any breaks
+    return [word];
+  };
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -87,7 +97,11 @@ export const Template2Columns = ({
         <View style={styles.leftColumn}>
           {/* Personal Data Section */}
           <View style={styles.section}>
-            <Text style={styles.title}>
+            <Text
+              wrap={false}
+              style={styles.title}
+              hyphenationCallback={hyphenationCallback}
+            >
               {data.personalData.fields.fullName}
             </Text>
           </View>
@@ -107,7 +121,7 @@ export const Template2Columns = ({
           {/* Skills Section */}
           {data.optionalData?.skills?.length > 0 && (
             <View style={styles.section}>
-              <Text style={styles.heading}>Skills</Text>
+              <Text style={styles.headingOutlined}>Skills</Text>
               {data.optionalData?.skills.map((skill: string, index: number) => (
                 <Text key={index} style={styles.listItem}>
                   • {skill}
