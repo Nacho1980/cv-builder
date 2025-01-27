@@ -1,10 +1,10 @@
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Typography,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 interface CustomAccordionProps {
   title: string;
@@ -22,8 +22,16 @@ const CustomAccordion: React.FC<CustomAccordionProps> = ({
         "&.Mui-expanded": {
           maxHeight: "none", // Removes height limit when expanded
         },
-        "&:before": {
-          display: "none", // Remove the default divider line
+        "& .MuiAccordionSummary-root": {
+          maxHeight: 80, // Limit height of summary when collapsed
+          minHeight: 80, // Ensures the same height when expanded
+          alignItems: "center", // Vertically align content
+        },
+        "& .MuiAccordionSummary-content": {
+          margin: 0, // Remove extra margin
+        },
+        "& .MuiAccordionDetails-root": {
+          padding: 0, // Remove padding from AccordionDetails
         },
       }}
     >

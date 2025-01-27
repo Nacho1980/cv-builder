@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { compareDatesMMYYYY } from "../utils";
 
 interface EducationItem {
   year: string;
@@ -22,12 +23,14 @@ const educationSlice = createSlice({
   reducers: {
     addEducation: (state, action: PayloadAction<EducationItem>) => {
       state.items.push(action.payload);
+      state.items.sort((a, b) => compareDatesMMYYYY(a.year, b.year));
     },
     updateEducation: (
       state,
       action: PayloadAction<{ index: number; item: EducationItem }>
     ) => {
       state.items[action.payload.index] = action.payload.item;
+      state.items.sort((a, b) => compareDatesMMYYYY(a.year, b.year));
     },
     removeEducation: (state, action: PayloadAction<number>) => {
       state.items.splice(action.payload, 1);

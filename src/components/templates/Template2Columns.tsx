@@ -1,4 +1,4 @@
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 import { LanguageItem } from "../../types";
 import { getLevelText } from "../../utils";
 
@@ -25,10 +25,15 @@ export const Template2Columns = ({
     },
     title: {
       fontSize: 32,
+      whiteSpace: "normal", // Allows text to wrap normally
+      overflowWrap: "break-word", // Prevents word breaks
+      wordWrap: "normal", // Ensures no word wrapping happens
+      lineHeight: 1.5, // Ensures proper line spacing between lines
     },
     leftColumn: {
       width: "40%",
       padding: 10,
+      backgroundColor: headingColor,
     },
     rightColumn: {
       width: "60%",
@@ -38,6 +43,10 @@ export const Template2Columns = ({
       marginBottom: 20,
       paddingBottom: 10,
     },
+    outlinedSection: {
+      marginBottom: 20,
+      backgroundColor: headingColor,
+    },
     sectionWithBorderBottom: {
       marginBottom: 20,
       paddingBottom: 10,
@@ -46,8 +55,15 @@ export const Template2Columns = ({
     heading: {
       fontSize: 16,
       marginBottom: 10,
-      fontWeight: 300,
+      fontWeight: "bold",
       color: headingColor,
+      borderBottom: `1px solid ${headingColor}`,
+    },
+    headingOutlined: {
+      fontSize: 16,
+      marginBottom: 10,
+      fontWeight: "bold",
+      color: "#FFFFFF",
       borderBottom: `1px solid ${headingColor}`,
     },
     text: {
@@ -55,6 +71,12 @@ export const Template2Columns = ({
     },
     listItem: {
       marginLeft: 10,
+    },
+    expHeader: {
+      fontWeight: 300,
+    },
+    expPosition: {
+      fontStyle: "italic",
     },
   });
 
@@ -120,13 +142,13 @@ export const Template2Columns = ({
                 },
                 index: number
               ) => (
-                <View key={index} style={styles.text}>
-                  <Text style={styles.text}>
+                <View key={index} style={styles.section}>
+                  <Text style={styles.expHeader}>
                     {exp.currentlyWorking
-                      ? `${exp.startDate} - (today) at ${exp.companyName}`
-                      : `${exp.startDate} - ${exp.finishDate} at ${exp.companyName}`}
+                      ? `${exp.startDate} >> (today) at ${exp.companyName}`
+                      : `${exp.startDate} >> ${exp.finishDate} at ${exp.companyName}`}
                   </Text>
-                  <Text style={styles.text}>Position: {exp.positionName}</Text>
+                  <Text style={styles.expPosition}>{exp.positionName}</Text>
                   <Text style={styles.text}>{exp.summary}</Text>
                 </View>
               )
@@ -143,7 +165,7 @@ export const Template2Columns = ({
               ) => (
                 <View key={index} style={styles.text}>
                   <Text style={styles.text}>
-                    ({edu.year}) {edu.degree} at {edu.center}
+                    • ({edu.year}) {edu.degree} at {edu.center}
                   </Text>
                 </View>
               )

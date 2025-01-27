@@ -46,6 +46,7 @@ function App() {
     if (currentStep > 1) setCurrentStep((prev) => prev - 1);
   };
 
+  console.log("isValid:", isValid);
   return (
     <ThemeProvider theme={theme}>
       <div className="main-body">
@@ -130,7 +131,13 @@ function App() {
             onClick={nextStep}
             disabled={
               currentStep === stepComponents.length ||
-              (currentStep === 1 && (!isValid || !fields.country))
+              (currentStep === 1 &&
+                (!isValid ||
+                  !fields.country ||
+                  !fields.fullName ||
+                  !fields.email ||
+                  !fields.city ||
+                  !fields.telephone))
             }
           >
             {currentStep === 0 ? "Start" : <ArrowForwardIosIcon />}

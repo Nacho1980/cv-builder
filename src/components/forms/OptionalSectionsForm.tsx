@@ -1,13 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import {
-  updateSummary,
-  addLanguage,
-  updateLanguage,
-  removeLanguage,
-  addSkill,
-  removeSkill,
-} from "../../reducers/optionalDataSlice";
-import { RootState } from "../../store/store";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import EngineeringIcon from "@mui/icons-material/Engineering";
+import TranslateIcon from "@mui/icons-material/Translate";
 import {
   Box,
   Button,
@@ -18,16 +13,20 @@ import {
   ListItemText,
   TextField,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { useState } from "react";
-import DiscreteSlider from "../DiscreteSlider";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { languageLevels } from "../../constants";
-import React from "react";
+import {
+  addLanguage,
+  addSkill,
+  removeLanguage,
+  removeSkill,
+  updateLanguage,
+  updateSummary,
+} from "../../reducers/optionalDataSlice";
+import { RootState } from "../../store/store";
 import CustomAccordion from "../CustomAccordion";
-import EngineeringIcon from "@mui/icons-material/Engineering";
-import TranslateIcon from "@mui/icons-material/Translate";
+import DiscreteSlider from "../DiscreteSlider";
 
 const OptionalSectionsForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -165,7 +164,7 @@ const OptionalSectionsForm: React.FC = () => {
         display="flex"
         flexDirection="row"
         alignItems="center"
-        gap={4}
+        gap={2}
         mb={3}
         mt={6}
       >

@@ -19,12 +19,14 @@ interface DateSelectorProps {
   onDateChange: (date: string) => void; // Callback to return the selected date in MM-YYYY format
   selectedDate: string;
   label: string;
+  error?: boolean;
 }
 
 const DateSelector: React.FC<DateSelectorProps> = ({
   onDateChange,
   selectedDate,
   label,
+  error,
 }) => {
   const currentYear = new Date().getFullYear();
   const [open, setOpen] = useState(false);
@@ -69,6 +71,7 @@ const DateSelector: React.FC<DateSelectorProps> = ({
             cursor: "pointer", // Pointer cursor for the label
           },
         }}
+        error={error}
       />
 
       {/* Overlay dialog */}

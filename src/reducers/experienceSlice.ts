@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { compareDatesMMYYYY } from "../utils";
 
 interface ExperienceItem {
   startDate: string;
@@ -25,12 +26,14 @@ const experienceSlice = createSlice({
   reducers: {
     addExperience: (state, action: PayloadAction<ExperienceItem>) => {
       state.items.push(action.payload);
+      state.items.sort((a, b) => compareDatesMMYYYY(a.startDate, b.startDate));
     },
     updateExperience: (
       state,
       action: PayloadAction<{ index: number; item: ExperienceItem }>
     ) => {
       state.items[action.payload.index] = action.payload.item;
+      state.items.sort((a, b) => compareDatesMMYYYY(a.startDate, b.startDate));
     },
     removeExperience: (state, action: PayloadAction<number>) => {
       state.items.splice(action.payload, 1);

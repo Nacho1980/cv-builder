@@ -1,13 +1,13 @@
+import AutoAwesomeMosaicIcon from "@mui/icons-material/AutoAwesomeMosaic";
+import BallotIcon from "@mui/icons-material/Ballot";
+import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
 import { TemplateTypes } from "../constants";
-import { Template } from "./templates/Template";
-import AutoAwesomeMosaicIcon from "@mui/icons-material/AutoAwesomeMosaic";
-import BallotIcon from "@mui/icons-material/Ballot";
-import { Box, Button, Typography } from "@mui/material";
+import { RootState } from "../store/store";
 import ColorSelector from "./ColorSelector";
+import { Template } from "./templates/Template";
 
 const DesignAndDownload: React.FC = () => {
   const data = useSelector((state: RootState) => state); // Retrieve data from Redux
@@ -17,6 +17,13 @@ const DesignAndDownload: React.FC = () => {
   const [color, setColor] = useState<string>("#000000");
   const [bgColor, setBgColor] = useState<string>("#FFFFFF");
   const [headingColor, setHeadingColor] = useState<string>("#ADD8E6");
+
+  const handleChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newTemplate: TemplateTypes
+  ) => {
+    setSelectedTemplate(newTemplate);
+  };
 
   return (
     <div>
@@ -29,36 +36,42 @@ const DesignAndDownload: React.FC = () => {
         alignItems="center"
         gap={3}
         mb={3}
+        justifyContent="space-between"
       >
-        <Box gap={3} display="flex" flexDirection="row" alignItems="center">
-          <Button
-            onClick={() => setSelectedTemplate(TemplateTypes.ONE_COLUMN)}
-            startIcon={<BallotIcon />}
+        <Box gap={1} display="flex" flexDirection="row" alignItems="center">
+          <ToggleButtonGroup
+            color="primary"
+            value={selectedTemplate}
+            exclusive
+            onChange={handleChange}
+            aria-label="Template"
           >
-            Single column
-          </Button>
-          <Button
-            onClick={() => setSelectedTemplate(TemplateTypes.TWO_COLUMNS)}
-            startIcon={<AutoAwesomeMosaicIcon />}
-          >
-            2 columnns
-          </Button>
+            <ToggleButton value={TemplateTypes.ONE_COLUMN}>
+              <BallotIcon /> Single column
+            </ToggleButton>
+            <ToggleButton value={TemplateTypes.TWO_COLUMNS}>
+              <AutoAwesomeMosaicIcon />
+              Two columns
+            </ToggleButton>
+          </ToggleButtonGroup>
         </Box>
-        <ColorSelector
-          label="Text"
-          onChange={(newVal) => setColor(newVal)}
-          color={color}
-        />
-        <ColorSelector
-          label="Background"
-          onChange={(newVal) => setBgColor(newVal)}
-          color={bgColor}
-        />
-        <ColorSelector
-          label="Heading"
-          onChange={(newVal) => setHeadingColor(newVal)}
-          color={headingColor}
-        />
+        <Box display="flex" flexDirection="row" gap={1}>
+          <ColorSelector
+            label="Text"
+            onChange={(newVal) => setColor(newVal)}
+            color={color}
+          />
+          <ColorSelector
+            label="Background"
+            onChange={(newVal) => setBgColor(newVal)}
+            color={bgColor}
+          />
+          <ColorSelector
+            label="Heading"
+            onChange={(newVal) => setHeadingColor(newVal)}
+            color={headingColor}
+          />
+        </Box>
       </Box>
 
       <PDFDownloadLink

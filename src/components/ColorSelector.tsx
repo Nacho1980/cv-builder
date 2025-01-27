@@ -12,7 +12,7 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
   color,
 }) => {
   return (
-    <Box gap={2} display="flex" flexDirection="row" alignItems="center">
+    <Box gap={1} display="flex" flexDirection="row" alignItems="center">
       <Typography variant="body1">{label}</Typography>
       <Box
         component="label"

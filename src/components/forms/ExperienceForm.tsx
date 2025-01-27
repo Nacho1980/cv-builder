@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import BadgeIcon from "@mui/icons-material/Badge";
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
   Button,
   Divider,
@@ -10,27 +12,21 @@ import {
   List,
   ListItem,
   ListItemText,
-  Radio,
   Switch,
   TextField,
-  Typography,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../store/store";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addExperience,
-  updateExperience,
   removeExperience,
+  updateExperience,
   validateExperience,
 } from "../../reducers/experienceSlice";
-import DateSelector from "../DateSelector";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { RootState } from "../../store/store";
+import { compareDatesMMYYYY } from "../../utils";
 import CustomAccordion from "../CustomAccordion";
-
+import DateSelector from "../DateSelector";
 const ExperienceForm: React.FC = () => {
   const dispatch = useDispatch();
   const { items } = useSelector((state: RootState) => state.experience);
@@ -131,6 +127,14 @@ const ExperienceForm: React.FC = () => {
                 label="End date"
                 onDateChange={handleDateChange("finishDate")}
                 selectedDate={newExperience.finishDate}
+                error={
+                  !!newExperience.startDate &&
+                  !!newExperience.finishDate &&
+                  compareDatesMMYYYY(
+                    newExperience.startDate,
+                    newExperience.finishDate
+                  ) >= 0
+                }
               />
             </Box>
           )}
@@ -144,6 +148,7 @@ const ExperienceForm: React.FC = () => {
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap={2}>
+          <BusinessCenterIcon style={{ fontSize: 40, color: "coral" }} />
           <TextField
             label="Company"
             value={newExperience.companyName}
@@ -154,6 +159,7 @@ const ExperienceForm: React.FC = () => {
           />
         </Box>
         <Box display="flex" alignItems="center" gap={2}>
+          <BadgeIcon style={{ fontSize: 40, color: "coral" }} />
           <TextField
             label="Position"
             value={newExperience.positionName}
@@ -165,7 +171,7 @@ const ExperienceForm: React.FC = () => {
         </Box>
         <Box display="flex" alignItems="center" gap={2}>
           <TextField
-            label="Description of the tasks performed"
+            label="Summary of the tasks performed"
             value={newExperience.summary}
             onChange={handleChange("summary")}
             onBlur={handleBlur("summary")}
@@ -185,7 +191,13 @@ const ExperienceForm: React.FC = () => {
               !newExperience.startDate ||
               !newExperience.positionName ||
               !newExperience.summary ||
-              (!newExperience.finishDate && !newExperience.currentlyWorking)
+              (!newExperience.finishDate && !newExperience.currentlyWorking) ||
+              (!!newExperience.startDate &&
+                !!newExperience.finishDate &&
+                compareDatesMMYYYY(
+                  newExperience.startDate,
+                  newExperience.finishDate
+                ) >= 0)
             }
             startIcon={<AddCircleOutlineIcon />}
           >
@@ -223,7 +235,7 @@ const ExperienceForm: React.FC = () => {
                     primary={
                       <span>
                         <b>
-                          {item.startDate} -{" "}
+                          {item.startDate} &rarr;{" "}
                           {item.currentlyWorking ? "Today" : item.finishDate}
                         </b>{" "}
                         {item.companyName}

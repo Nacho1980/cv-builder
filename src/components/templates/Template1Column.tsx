@@ -1,4 +1,4 @@
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 import { getLevelText } from "../../utils";
 
 export const Template1Column = ({
@@ -22,10 +22,18 @@ export const Template1Column = ({
     },
     title: {
       fontSize: 32,
+      whiteSpace: "normal", // Allows text to wrap normally
+      overflowWrap: "break-word", // Prevents word breaks
+      wordWrap: "normal", // Ensures no word wrapping happens
+      lineHeight: 1.5, // Ensures proper line spacing between lines
     },
     section: {
       marginBottom: 20,
       paddingBottom: 10,
+    },
+    outlinedSection: {
+      marginBottom: 20,
+      backgroundColor: headingColor,
     },
     sectionWithBorderBottom: {
       marginBottom: 20,
@@ -50,13 +58,19 @@ export const Template1Column = ({
       flexDirection: "row",
       justifyContent: "space-between",
     },
+    expHeader: {
+      fontWeight: 300,
+    },
+    expPosition: {
+      fontStyle: "italic",
+    },
   });
 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         {/* Personal Data Section */}
-        <View style={styles.section}>
+        <View style={styles.outlinedSection}>
           <Text style={styles.title}>{data.personalData.fields.fullName}</Text>
         </View>
         <View style={styles.section}>
@@ -106,13 +120,13 @@ export const Template1Column = ({
               },
               index: number
             ) => (
-              <View key={index} style={styles.text}>
-                <Text style={styles.text}>
+              <View key={index} style={styles.section}>
+                <Text style={styles.expHeader}>
                   {exp.currentlyWorking
-                    ? `${exp.startDate} - (today) at ${exp.companyName}`
-                    : `${exp.startDate} - ${exp.finishDate} at ${exp.companyName}`}
+                    ? `${exp.startDate} >> (today) at ${exp.companyName}`
+                    : `${exp.startDate} >> ${exp.finishDate} at ${exp.companyName}`}
                 </Text>
-                <Text style={styles.text}>Position: {exp.positionName}</Text>
+                <Text style={styles.expPosition}>{exp.positionName}</Text>
                 <Text style={styles.text}>{exp.summary}</Text>
               </View>
             )
@@ -129,7 +143,7 @@ export const Template1Column = ({
             ) => (
               <View key={index} style={styles.text}>
                 <Text style={styles.text}>
-                  ({edu.year}) {edu.degree} at {edu.center}
+                  • ({edu.year}) {edu.degree} at {edu.center}
                 </Text>
               </View>
             )
