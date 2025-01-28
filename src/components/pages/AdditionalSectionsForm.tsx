@@ -23,17 +23,17 @@ import {
   removeSkill,
   updateLanguage,
   updateSummary,
-} from "../../reducers/optionalDataSlice";
+} from "../../reducers/additionalDataSlice";
 import { RootState } from "../../store/store";
 import CustomAccordion from "../CustomAccordion";
 import DiscreteSlider from "../DiscreteSlider";
 
-const OptionalSectionsForm: React.FC = () => {
+const AdditionalSectionsForm: React.FC = () => {
   const requiredFields = ["summary"];
   const [errorFields, setErrorFields] = useState<string[]>([]);
   const dispatch = useDispatch();
   const { summary, languages, skills } = useSelector(
-    (state: RootState) => state.optionalData
+    (state: RootState) => state.additionalData
   );
   const [newSkill, setNewSkill] = useState("");
   const [newLanguage, setNewLanguage] = useState({
@@ -110,6 +110,7 @@ const OptionalSectionsForm: React.FC = () => {
       <Box display="flex" flexDirection="column" gap={2} mb={2}>
         <TextField
           label="Summary"
+          helperText="Describe in a few lines how you are qualified for a future position"
           value={summary}
           multiline
           rows={4}
@@ -245,4 +246,4 @@ const OptionalSectionsForm: React.FC = () => {
   );
 };
 
-export default OptionalSectionsForm;
+export default AdditionalSectionsForm;

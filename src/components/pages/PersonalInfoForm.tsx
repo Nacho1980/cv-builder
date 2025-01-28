@@ -1,6 +1,7 @@
 import AlternateEmailRoundedIcon from "@mui/icons-material/AlternateEmailRounded";
 import AodRoundedIcon from "@mui/icons-material/AodRounded";
 import ApartmentRoundedIcon from "@mui/icons-material/ApartmentRounded";
+import LanguageIcon from "@mui/icons-material/Language";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import { Box, SelectChangeEvent, TextField } from "@mui/material";
 import React from "react";
@@ -79,7 +80,9 @@ const PersonalInfoForm: React.FC = () => {
           />
           <CountrySelector
             handleChangeCountry={handleChangeCountry}
-            defaultValue={fields.country}
+            defaultValue={
+              countries.find((c) => c.label === fields.country)?.code || ""
+            }
           />
         </Box>
         <Box display="flex" alignItems="center" gap={2}>
@@ -91,6 +94,21 @@ const PersonalInfoForm: React.FC = () => {
             onChange={handleChange("telephone")}
             onBlur={handleBlur("telephone")}
             error={!!errors.telephone}
+            sx={{
+              backgroundColor: "transparent", // Ensures background doesn't change
+              "& .MuiInputBase-root": {
+                backgroundColor: "transparent",
+              },
+            }}
+          />
+        </Box>
+        <Box display="flex" alignItems="center" gap={2}>
+          <LanguageIcon style={{ fontSize: 40, color: "coral" }} />
+          <TextField
+            label="Web (optional)"
+            fullWidth
+            value={fields.web}
+            onChange={handleChange("web")}
             sx={{
               backgroundColor: "transparent", // Ensures background doesn't change
               "& .MuiInputBase-root": {

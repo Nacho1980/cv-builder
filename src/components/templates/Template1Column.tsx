@@ -1,5 +1,11 @@
-import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
-import { getLevelText } from "../../utils";
+import {
+  Document,
+  Link,
+  Page,
+  StyleSheet,
+  Text,
+  View,
+} from "@react-pdf/renderer";
 
 export const Template1Column = ({
   data,
@@ -51,9 +57,11 @@ export const Template1Column = ({
       borderBottom: `1px solid ${headingColor}`,
     },
     text: {
+      fontFamily: "Helvetica", // Default Helvetica font
       marginBottom: 5,
     },
     bold: {
+      fontFamily: "Helvetica-Bold", // Use the bold variant
       fontWeight: "bold",
     },
     listItem: {
@@ -69,6 +77,25 @@ export const Template1Column = ({
     },
     expPosition: {
       fontStyle: "italic",
+    },
+    // Bar for language level
+    languageContainer: {
+      marginBottom: 10,
+    },
+    languageLabel: {
+      fontSize: 12,
+      marginBottom: 5,
+    },
+    languageBarContainer: {
+      height: 10,
+      width: "100%",
+      backgroundColor: "#e0e0e0", // Light gray background
+      borderRadius: 5,
+      overflow: "hidden",
+    },
+    languageBar: {
+      height: "100%",
+      backgroundColor: "#4caf50", // Green for the filled level
     },
   });
 
@@ -88,30 +115,39 @@ export const Template1Column = ({
         </View>
         <View style={styles.section}>
           <Text style={styles.text}>
-            <Text style={styles.bold}> Email:</Text>{" "}
+            <Text style={styles.bold}> Email: </Text>
             {data.personalData.fields.email}
           </Text>
           <Text style={styles.text}>
-            Telephone: {data.personalData.fields.telephone}
+            <Text style={styles.bold}>Telephone: </Text>
+            {data.personalData.fields.telephone}
           </Text>
           <Text style={styles.text}>
-            Location: {data.personalData.fields.city} (
-            {data.personalData.fields.country})
+            <Text style={styles.bold}>Location: </Text>
+            {data.personalData.fields.city} ({data.personalData.fields.country})
           </Text>
+          {data.personalData.fields.web && (
+            <Text style={styles.text}>
+              <Text style={styles.bold}>Web: </Text>
+              <Link src={data.personalData.fields.web}>
+                {data.personalData.fields.web}
+              </Link>
+            </Text>
+          )}
         </View>
 
         {/* Summary Section */}
-        {data.optionalData?.summary && (
+        {data.additionalData?.summary && (
           <View style={styles.section}>
-            <Text style={styles.text}>{data.optionalData?.summary}</Text>
+            <Text style={styles.text}>{data.additionalData?.summary}</Text>
           </View>
         )}
 
         {/* Skills Section */}
-        {data.optionalData?.skills?.length > 0 && (
+        {data.additionalData?.skills?.length > 0 && (
           <View style={styles.section}>
             <Text style={styles.heading}>Skills</Text>
-            {data.optionalData?.skills.map((skill: string, index: number) => (
+            {data.additionalData?.skills.map((skill: string, index: number) => (
               <Text key={index} style={styles.listItem}>
                 • {skill}
               </Text>
@@ -120,32 +156,37 @@ export const Template1Column = ({
         )}
 
         {/* Experience Section */}
-        <View style={styles.section}>
-          <Text style={styles.heading}>Experience</Text>
-          {data.experience.items.map(
-            (
-              exp: {
-                startDate: string;
-                finishDate: string;
-                companyName: string;
-                positionName: string;
-                summary: string;
-                currentlyWorking: boolean;
-              },
-              index: number
-            ) => (
-              <View key={index} style={styles.section}>
-                <Text style={styles.expHeader}>
-                  {exp.currentlyWorking
-                    ? `${exp.startDate} >> (today) at ${exp.companyName}`
-                    : `${exp.startDate} >> ${exp.finishDate} at ${exp.companyName}`}
-                </Text>
-                <Text style={styles.expPosition}>{exp.positionName}</Text>
-                <Text style={styles.text}>{exp.summary}</Text>
-              </View>
-            )
-          )}
-        </View>
+        {data.experience.items.length > 0 && (
+          <View style={styles.section}>
+            <Text style={styles.heading}>Experience</Text>
+            {data.experience.items.map(
+              (
+                exp: {
+                  startDate: string;
+                  finishDate: string;
+                  companyName: string;
+                  positionName: string;
+                  summary: string;
+                  currentlyWorking: boolean;
+                },
+                index: number
+              ) => (
+                <View key={index} style={styles.section}>
+                  <Text style={styles.expHeader}>
+                    <Text style={styles.bold}>
+                      {exp.currentlyWorking
+                        ? `${exp.startDate} >> (today)`
+                        : `${exp.startDate} >> ${exp.finishDate}`}
+                      {` at ${exp.companyName}`}
+                    </Text>
+                  </Text>
+                  <Text style={styles.expPosition}>{exp.positionName}</Text>
+                  <Text style={styles.text}>{exp.summary}</Text>
+                </View>
+              )
+            )}
+          </View>
+        )}
 
         {/* Education Section */}
         <View style={styles.section}>
@@ -165,17 +206,25 @@ export const Template1Column = ({
         </View>
 
         {/* Languages Section */}
-        {data.optionalData?.languages?.length > 0 && (
+        {data.additionalData?.languages?.length > 0 && (
           <View style={styles.section}>
             <Text style={styles.heading}>Languages</Text>
-            {data.optionalData.languages.map(
+            {data.additionalData.languages.map(
               (
                 language: { language: string; level: number },
                 index: number
               ) => (
-                <Text key={index} style={styles.listItem}>
-                  • {language.language} - Level: {getLevelText(language.level)}
-                </Text>
+                <View key={index} style={styles.languageContainer}>
+                  <Text style={styles.languageLabel}>{language.language}</Text>
+                  <View style={styles.languageBarContainer}>
+                    <View
+                      style={[
+                        styles.languageBar,
+                        { width: `${(language.level / 7) * 100}%` },
+                      ]}
+                    />
+                  </View>
+                </View>
               )
             )}
           </View>

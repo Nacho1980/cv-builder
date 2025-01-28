@@ -1,6 +1,6 @@
 # CV generator React demo by Ignacio.
 
-## React + Redux + TypeScript + Vite + React-pdf + Material UI
+## React + Redux + TypeScript + Vite + React-pdf + Material UI + Cypress
 
 CV generator: After requesting data from the user
 and storing in the redux store, it generates a CV downloadable in PDF format.

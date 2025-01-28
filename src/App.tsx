@@ -16,7 +16,8 @@ function App() {
   const { isValid, fields } = useSelector(
     (state: RootState) => state.personalData
   );
-  const { summary } = useSelector((state: RootState) => state.optionalData);
+  const { summary } = useSelector((state: RootState) => state.additionalData);
+  const education = useSelector((state: RootState) => state.education);
 
   const theme = createTheme({
     components: {
@@ -56,11 +57,11 @@ function App() {
           !fields.email ||
           !fields.city ||
           !fields.telephone)) ||
-      (currentStep === 4 && !summary)
+      (currentStep === 4 && !summary) ||
+      (currentStep === 2 && education.items.length === 0)
     );
   };
 
-  console.log("isValid:", isValid);
   return (
     <ThemeProvider theme={theme}>
       <div className="main-body">
@@ -140,13 +141,15 @@ function App() {
           {currentStep > 0 && (
             <CustomStepper currentStep={currentStep} steps={stepLabels} />
           )}
-          <Button
-            variant="contained"
-            onClick={nextStep}
-            disabled={isNextBtnDisabled()}
-          >
-            {currentStep === 0 ? "Start" : <ArrowForwardIosIcon />}
-          </Button>
+          {currentStep < stepLabels.length && (
+            <Button
+              variant="contained"
+              onClick={nextStep}
+              disabled={isNextBtnDisabled()}
+            >
+              {currentStep === 0 ? "Start" : <ArrowForwardIosIcon />}
+            </Button>
+          )}
         </div>
       </div>
     </ThemeProvider>

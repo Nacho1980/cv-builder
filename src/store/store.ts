@@ -1,15 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import personalDataReducer from "../reducers/personalDataSlice";
+import additionalDataReducer from "../reducers/additionalDataSlice";
 import educationReducer from "../reducers/educationSlice";
 import experienceReducer from "../reducers/experienceSlice";
-import optionalDataReducer from "../reducers/optionalDataSlice";
+import personalDataReducer from "../reducers/personalDataSlice";
 
 const store = configureStore({
   reducer: {
     personalData: personalDataReducer,
     education: educationReducer,
     experience: experienceReducer,
-    optionalData: optionalDataReducer,
+    additionalData: additionalDataReducer,
   },
 });
 

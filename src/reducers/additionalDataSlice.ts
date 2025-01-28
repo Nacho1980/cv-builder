@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LanguageItem } from "../types";
 
-interface OptionalDataState {
+interface AdditionalDataState {
   summary: string;
   languages: LanguageItem[];
   skills: string[];
 }
 
-const initialState: OptionalDataState = {
+const initialState: AdditionalDataState = {
   summary: "",
   languages: [],
   skills: [],
 };
 
-const optionalDataSlice = createSlice({
-  name: "optionalData",
+const additionalDataSlice = createSlice({
+  name: "additionalData",
   initialState,
   reducers: {
     updateSummary: (state, action: PayloadAction<string>) => {
@@ -48,5 +48,5 @@ export const {
   removeLanguage,
   addSkill,
   removeSkill,
-} = optionalDataSlice.actions;
-export default optionalDataSlice.reducer;
+} = additionalDataSlice.actions;
+export default additionalDataSlice.reducer;

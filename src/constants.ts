@@ -1,7 +1,7 @@
+import AdditionalSectionsForm from "./components/pages/AdditionalSectionsForm";
 import DesignAndDownload from "./components/pages/DesignAndDownload";
 import EducationForm from "./components/pages/EducationForm";
 import ExperienceForm from "./components/pages/ExperienceForm";
-import OptionalSectionsForm from "./components/pages/OptionalSectionsForm";
 import PersonalInfoForm from "./components/pages/PersonalInfoForm";
 import { Step } from "./types";
 
@@ -21,7 +21,7 @@ export const stepComponents: StepComponent[] = [
   { step: 1, component: PersonalInfoForm },
   { step: 2, component: EducationForm },
   { step: 3, component: ExperienceForm },
-  { step: 4, component: OptionalSectionsForm },
+  { step: 4, component: AdditionalSectionsForm },
   { step: 5, component: DesignAndDownload },
 ];
 export interface FormState {
