@@ -43,6 +43,7 @@ const PersonalInfoForm: React.FC = () => {
           <PersonRoundedIcon style={{ fontSize: 40, color: "coral" }} />
           <TextField
             label="Full Name"
+            name="fullName"
             fullWidth
             value={fields.fullName}
             onChange={handleChange("fullName")}
@@ -54,6 +55,7 @@ const PersonalInfoForm: React.FC = () => {
           <AlternateEmailRoundedIcon style={{ fontSize: 40, color: "coral" }} />
           <TextField
             label="Email Address"
+            name="emailAddress"
             fullWidth
             value={fields.email}
             onChange={handleChange("email")}
@@ -72,6 +74,7 @@ const PersonalInfoForm: React.FC = () => {
           <ApartmentRoundedIcon style={{ fontSize: 40, color: "coral" }} />
           <TextField
             label="City"
+            name="city"
             fullWidth
             value={fields.city}
             onChange={handleChange("city")}
@@ -89,6 +92,7 @@ const PersonalInfoForm: React.FC = () => {
           <AodRoundedIcon style={{ fontSize: 40, color: "coral" }} />
           <TextField
             label="Telephone"
+            name="telephone"
             fullWidth
             value={fields.telephone}
             onChange={handleChange("telephone")}
@@ -106,6 +110,7 @@ const PersonalInfoForm: React.FC = () => {
           <LanguageIcon style={{ fontSize: 40, color: "coral" }} />
           <TextField
             label="Web (optional)"
+            name="web"
             fullWidth
             value={fields.web}
             onChange={handleChange("web")}

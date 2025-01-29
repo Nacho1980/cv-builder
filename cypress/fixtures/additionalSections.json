@@ -1,0 +1,26 @@
+{
+  "summary": "Experienced software developer with 20+ years of expertise in full-stack web development. Passionate about creating scalable solutions and implementing best practices. Led multiple cross-functional teams in delivering enterprise-level applications. Strong background in agile methodologies and continuous integration/deployment practices. Proven track record of mentoring junior developers and contributing to open-source projects.",
+  "skills": [
+    "JavaScript",
+    "React",
+    "Node.js",
+    "TypeScript",
+    "Cypress",
+    "MongoDB",
+    "Java"
+  ],
+  "languages": [
+    {
+      "name": "English",
+      "level": "C2"
+    },
+    {
+      "name": "Spanish",
+      "level": "Native"
+    },
+    {
+      "name": "French",
+      "level": "B1"
+    }
+  ]
+}

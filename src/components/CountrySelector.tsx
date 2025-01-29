@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
 import {
   Box,
-  Select,
-  MenuItem,
-  Typography,
   FormControl,
-  SelectChangeEvent,
   InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Typography,
 } from "@mui/material";
+import React, { useState } from "react";
 import useGetCountries from "../hooks/useGetCountries";
 import { Country } from "../types";
 
@@ -28,7 +28,7 @@ const CountrySelector: React.FC<CountrySelectorProps> = ({
     handleChangeCountry(event);
   };
   if (loading) {
-    return <div>Loading contries...</div>;
+    return <div>Loading countries...</div>;
   } else if (error) {
     return <div>Error loading countries: {error}</div>;
   } else if (countries.length > 0) {
@@ -38,8 +38,12 @@ const CountrySelector: React.FC<CountrySelectorProps> = ({
           <InputLabel id="country-select-label">Country</InputLabel>
           <Select
             className="country-select"
+            name="country-select"
             labelId="country-select-label"
             label="Country"
+            inputProps={{
+              "data-testid": "country-selector",
+            }}
             value={selectedCountry}
             onChange={handleChange}
             renderValue={(value) => {

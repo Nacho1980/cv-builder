@@ -1,0 +1,16 @@
+[
+  {
+    "company": "Company One",
+    "position": "Junior Backend Developer",
+    "summary": "As a junior developer I assisted in the development of a tool to track storms in Java",
+    "startDate": "06-2023",
+    "endDate": "10-2024"
+  },
+  {
+    "company": "Company Two",
+    "position": "Senior Backend Developer",
+    "summary": "As a senior developer I led the maintenance of portlets for an education portal implemented in Liferay with Java",
+    "startDate": "11-2024",
+    "endDate": "01-2025"
+  }
+]

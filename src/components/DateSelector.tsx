@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
+import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import {
   Box,
   Button,
@@ -9,17 +10,15 @@ import {
   Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import CalendarTodayRoundedIcon from "@mui/icons-material/CalendarTodayRounded";
-import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
-import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import React, { useState } from "react";
 import { months } from "../constants";
-import { blue } from "@mui/material/colors";
 
 interface DateSelectorProps {
   onDateChange: (date: string) => void; // Callback to return the selected date in MM-YYYY format
   selectedDate: string;
   label: string;
   error?: boolean;
+  testId?: string;
 }
 
 const DateSelector: React.FC<DateSelectorProps> = ({
@@ -27,6 +26,7 @@ const DateSelector: React.FC<DateSelectorProps> = ({
   selectedDate,
   label,
   error,
+  testId,
 }) => {
   const currentYear = new Date().getFullYear();
   const [open, setOpen] = useState(false);
@@ -54,6 +54,7 @@ const DateSelector: React.FC<DateSelectorProps> = ({
         <CalendarTodayRoundedIcon />
       </Button> */}
       <TextField
+        name={testId}
         label={label}
         value={selectedDate || "Click to select"}
         onClick={handleOpen}
@@ -84,11 +85,11 @@ const DateSelector: React.FC<DateSelectorProps> = ({
             justifyContent="space-between"
             mb={2}
           >
-            <IconButton onClick={handlePreviousYear}>
+            <IconButton onClick={handlePreviousYear} name="previousYear">
               <ArrowBackIosRoundedIcon />
             </IconButton>
             <Typography variant="h6">{year}</Typography>
-            <IconButton onClick={handleNextYear}>
+            <IconButton onClick={handleNextYear} name="nextYear">
               <ArrowForwardIosRoundedIcon />
             </IconButton>
           </Box>
@@ -98,6 +99,7 @@ const DateSelector: React.FC<DateSelectorProps> = ({
             {months.map((month) => (
               <Grid key={month.value} size={{ xs: 4 }}>
                 <Button
+                  name={"month" + month.value}
                   fullWidth
                   variant="outlined"
                   onClick={() => handleMonthSelect(month.value)}

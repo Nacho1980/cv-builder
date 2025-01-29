@@ -14,4 +14,11 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import "./commands";
+
+Cypress.on("uncaught:exception", (err: Error) => {
+  if (err.message.includes("ResizeObserver loop")) {
+    return false; // Prevent Cypress from failing the test
+  }
+  return true; // Let other errors fail the test
+});

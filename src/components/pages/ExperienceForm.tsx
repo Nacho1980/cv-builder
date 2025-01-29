@@ -116,6 +116,7 @@ const ExperienceForm: React.FC = () => {
           <CalendarMonthIcon style={{ fontSize: 40, color: "coral" }} />
           <Box display="flex" alignItems="center" gap={2}>
             <DateSelector
+              testId="startDate"
               label="Start date"
               onDateChange={handleDateChange("startDate")}
               selectedDate={newExperience.startDate}
@@ -125,6 +126,7 @@ const ExperienceForm: React.FC = () => {
           {newExperience.currentlyWorking === false && (
             <Box display="flex" alignItems="center" gap={2}>
               <DateSelector
+                testId="endDate"
                 label="End date"
                 onDateChange={handleDateChange("finishDate")}
                 selectedDate={newExperience.finishDate}
@@ -142,6 +144,7 @@ const ExperienceForm: React.FC = () => {
           )}
           <Box>
             <Switch
+              name="currentlyWorking"
               checked={newExperience.currentlyWorking === true}
               onChange={handleChange("currentlyWorking")}
               inputProps={{ "aria-label": "Currently working" }}
@@ -153,6 +156,7 @@ const ExperienceForm: React.FC = () => {
           <BusinessCenterIcon style={{ fontSize: 40, color: "coral" }} />
           <TextField
             label="Company"
+            name="company"
             value={newExperience.companyName}
             onChange={handleChange("companyName")}
             onBlur={handleBlur("companyName")}
@@ -164,6 +168,7 @@ const ExperienceForm: React.FC = () => {
           <BadgeIcon style={{ fontSize: 40, color: "coral" }} />
           <TextField
             label="Position"
+            name="position"
             value={newExperience.positionName}
             onChange={handleChange("positionName")}
             onBlur={handleBlur("positionName")}
@@ -174,6 +179,7 @@ const ExperienceForm: React.FC = () => {
         <Box display="flex" alignItems="center" gap={2}>
           <TextField
             label="Summary of the tasks performed"
+            name="summary"
             value={newExperience.summary}
             onChange={handleChange("summary")}
             onBlur={handleBlur("summary")}
@@ -185,6 +191,7 @@ const ExperienceForm: React.FC = () => {
         </Box>
         <Box display="flex" justifyContent="center">
           <Button
+            name="addExperience"
             variant="contained"
             color="primary"
             onClick={handleAddOrUpdate}
@@ -211,7 +218,7 @@ const ExperienceForm: React.FC = () => {
       {/* Listing of experiences */}
       {items.length > 0 && (
         <CustomAccordion title="Experience">
-          <List>
+          <List data-testid="list-of-experience">
             {items.map((item, index) => (
               <React.Fragment key={index}>
                 <ListItem

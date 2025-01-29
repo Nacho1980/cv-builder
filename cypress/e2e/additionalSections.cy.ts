@@ -1,4 +1,6 @@
-describe("Experience tests", () => {
+import { languageLevels } from "../../src/constants";
+
+describe("Additional sections", () => {
   beforeEach(() => {
     // Visit the form page before each test
     cy.visit("/"); // Adjust to your route for this form
@@ -75,9 +77,7 @@ describe("Experience tests", () => {
     });
     // Navigate to Experience
     cy.get('[data-testid="ArrowForwardIosIcon"]').click();
-  });
 
-  it("Should update fields when typing", () => {
     cy.get('input[name="company"]').should("exist");
     cy.get('input[name="position"]').should("exist");
     cy.get('textarea[name="summary"]').should("exist");
@@ -135,6 +135,43 @@ describe("Experience tests", () => {
       cy.get('[data-testid="list-of-experience"]')
         .find("li")
         .should("have.length", 2);
+    });
+
+    // Navigate to summary
+    cy.get('[data-testid="ArrowForwardIosIcon"]').click({ force: true });
+  });
+
+  it("Should update fields when typing", () => {
+    cy.fixture("additionalSections").then((additionalData) => {
+      // Summary
+      cy.get('input[name="summary"]').type(additionalData.summary);
+
+      // Skills
+      additionalData.skills.forEach((skill: string, index: number) => {
+        cy.get('input[name="skill"]').type(skill);
+        cy.get('button[name="addSkill"]').click();
+      });
+      cy.get('[data-testid="list-of-skills"]')
+        .find("li")
+        .should("have.length", 7);
+
+      // Languages
+      additionalData.languages.forEach(
+        (language: { name: string; level: string }, index: number) => {
+          cy.get('input[name="language"]').type(language.name);
+          cy.get('[aria-label="Select your level"]')
+            .find('input[type="range"]')
+            .invoke(
+              "val",
+              languageLevels.find((ll) => ll.label === language.level)?.value
+            )
+            .trigger("change", { force: true });
+          cy.get('button[name="addLanguage"]').click();
+        }
+      );
+      cy.get('[data-testid="list-of-languages"]')
+        .find("li")
+        .should("have.length", 3);
     });
   });
 });

@@ -110,6 +110,7 @@ const AdditionalSectionsForm: React.FC = () => {
       <Box display="flex" flexDirection="column" gap={2} mb={2}>
         <TextField
           label="Summary"
+          name="summary"
           helperText="Describe in a few lines how you are qualified for a future position"
           value={summary}
           multiline
@@ -129,6 +130,7 @@ const AdditionalSectionsForm: React.FC = () => {
           <EngineeringIcon style={{ fontSize: 40, color: "coral" }} />
           <TextField
             label="Skill"
+            name="skill"
             value={newSkill}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setNewSkill(e.target.value)
@@ -138,6 +140,7 @@ const AdditionalSectionsForm: React.FC = () => {
         </Box>
         <Box display="flex" justifyContent="center">
           <Button
+            name="addSkill"
             variant="contained"
             color="primary"
             onClick={handleAddSkill}
@@ -151,7 +154,7 @@ const AdditionalSectionsForm: React.FC = () => {
         {/* Listing of skills */}
         {skills.length > 0 && (
           <CustomAccordion title="Skills">
-            <List>
+            <List data-testid="list-of-skills">
               {skills.map((skill, index) => (
                 <React.Fragment key={index}>
                   <ListItem
@@ -182,6 +185,7 @@ const AdditionalSectionsForm: React.FC = () => {
         <TranslateIcon style={{ fontSize: 40, color: "coral" }} />
         <TextField
           label="Language"
+          name="language"
           value={newLanguage.language}
           onChange={handleChangeLanguage("language")}
         />
@@ -192,6 +196,7 @@ const AdditionalSectionsForm: React.FC = () => {
       </Box>
       <Box display="flex" justifyContent="center" mb={3}>
         <Button
+          name="addLanguage"
           variant="contained"
           color="primary"
           onClick={handleAddOrUpdateLanguage}
@@ -205,7 +210,7 @@ const AdditionalSectionsForm: React.FC = () => {
       {/* Listing of languages */}
       {languages.length > 0 && (
         <CustomAccordion title="Languages">
-          <List>
+          <List data-testid="list-of-languages">
             {languages.map((language, index) => (
               <React.Fragment key={index}>
                 <ListItem

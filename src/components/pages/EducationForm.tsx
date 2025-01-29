@@ -92,6 +92,7 @@ const EducationForm: React.FC = () => {
         <Box display="flex" alignItems="center" gap={2}>
           <CalendarMonthIcon style={{ fontSize: 40, color: "coral" }} />
           <DateSelector
+            testId="date"
             onDateChange={handleDateChange("year")}
             selectedDate={newEducation.year}
             label="Select year/month"
@@ -101,6 +102,7 @@ const EducationForm: React.FC = () => {
         <Box display="flex" alignItems="center" gap={2} flex={1}>
           <AssuredWorkloadIcon style={{ fontSize: 40, color: "coral" }} />
           <TextField
+            name="center"
             label="Center"
             value={newEducation.center}
             onChange={handleChange("center")}
@@ -116,6 +118,7 @@ const EducationForm: React.FC = () => {
       <Box display="flex" alignItems="center" gap={2}>
         <SchoolIcon style={{ fontSize: 40, color: "coral" }} />
         <TextField
+          name="degree"
           label="Degree or Certification"
           value={newEducation.degree}
           onChange={handleChange("degree")}
@@ -127,6 +130,7 @@ const EducationForm: React.FC = () => {
       </Box>
       <Box display="flex" justifyContent="center">
         <Button
+          name="addEducation"
           variant="contained"
           color="primary"
           onClick={handleAddOrUpdate}
@@ -142,7 +146,7 @@ const EducationForm: React.FC = () => {
       {/* Listing of education */}
       {items.length > 0 && (
         <CustomAccordion title="Education">
-          <List>
+          <List data-testid="list-of-education">
             {items.map((item, index) => (
               <React.Fragment key={index}>
                 <ListItem
