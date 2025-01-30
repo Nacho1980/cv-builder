@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 describe("Education tests", () => {
   beforeEach(() => {
     // Visit the form page before each test
@@ -18,7 +19,7 @@ describe("Education tests", () => {
     // Confirm navigation to the Personal Info Form
     cy.contains("Contact data").should("be.visible");
 
-    cy.fixture("userData").then((userData) => {
+    cy.fixture("userData").then((userData: any) => {
       cy.get('input[name="fullName"]').type(userData.fullName);
       cy.get('input[name="emailAddress"]').type(userData.email);
       cy.get('input[name="city"]').type(userData.city);
@@ -53,7 +54,7 @@ describe("Education tests", () => {
   });
 
   it("should update fields when typing", () => {
-    cy.fixture("education").then((educationData) => {
+    cy.fixture("education").then((educationData: any) => {
       educationData.forEach((education: any, index: number) => {
         cy.get('input[name="center"]').type(education.center);
         cy.get('input[name="degree"]').type(education.degree);

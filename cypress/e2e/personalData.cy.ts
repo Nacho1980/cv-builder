@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 describe("Personal Info Form Tests", () => {
   beforeEach(() => {
     // Visit the form page before each test
@@ -47,7 +48,7 @@ describe("Personal Info Form Tests", () => {
   });
 
   it("should update fields when typing", () => {
-    cy.fixture("userData").then((userData) => {
+    cy.fixture("userData").then((userData: any) => {
       cy.get('input[name="fullName"]').type(userData.fullName);
       cy.get('input[name="emailAddress"]').type(userData.email);
       cy.get('input[name="city"]').type(userData.city);

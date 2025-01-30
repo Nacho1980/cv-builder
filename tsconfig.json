@@ -4,7 +4,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "jsx": "react-jsx",
-    "types": ["cypress", "node"],
+    "types": ["node"],
     "strict": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
@@ -12,5 +12,6 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
-  "include": ["src", "cypress/e2e/**/*.ts"]
+  "include": ["src"],
+  "exclude": ["cypress"]
 }

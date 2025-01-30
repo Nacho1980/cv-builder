@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 import { languageLevels } from "../../src/constants";
 
 describe("Additional sections", () => {
@@ -20,7 +21,7 @@ describe("Additional sections", () => {
     // Confirm navigation to the Personal Info Form
     cy.contains("Contact data").should("be.visible");
 
-    cy.fixture("userData").then((userData) => {
+    cy.fixture("userData").then((userData: any) => {
       cy.get('input[name="fullName"]').type(userData.fullName);
       cy.get('input[name="emailAddress"]').type(userData.email);
       cy.get('input[name="city"]').type(userData.city);
@@ -48,7 +49,7 @@ describe("Additional sections", () => {
     // Navigate to Education
     cy.get('[data-testid="ArrowForwardIosIcon"]').click();
 
-    cy.fixture("education").then((educationData) => {
+    cy.fixture("education").then((educationData: any) => {
       educationData.forEach((education: any, index: number) => {
         cy.get('input[name="center"]').type(education.center);
         cy.get('input[name="degree"]').type(education.degree);
@@ -81,7 +82,7 @@ describe("Additional sections", () => {
     cy.get('input[name="company"]').should("exist");
     cy.get('input[name="position"]').should("exist");
     cy.get('textarea[name="summary"]').should("exist");
-    cy.fixture("experience").then((experienceData) => {
+    cy.fixture("experience").then((experienceData: any) => {
       experienceData.forEach((experience: any, index: number) => {
         cy.get('input[name="company"]').type(experience.company);
         cy.get('input[name="position"]').type(experience.position);
@@ -141,7 +142,7 @@ describe("Additional sections", () => {
     cy.get('[data-testid="ArrowForwardIosIcon"]').click({ force: true });
 
     // Fill in summary data with fixture
-    cy.fixture("additionalSections").then((additionalData) => {
+    cy.fixture("additionalSections").then((additionalData: any) => {
       // Summary
       cy.get('textarea[name="summary"]').type(additionalData.summary);
 
@@ -157,9 +158,9 @@ describe("Additional sections", () => {
       // Languages
       additionalData.languages.forEach(
         (language: { name: string; level: string }, index: number) => {
-          const levelSlider = languageLevels.find(
-            (ll) => ll.label === language.level
-          )?.value;
+          const levelSlider =
+            languageLevels.find((ll) => ll.label === language.level)?.value ??
+            0;
           console.log(language.name);
           console.log("Slider level: " + levelSlider);
           const min = 1;
@@ -167,7 +168,7 @@ describe("Additional sections", () => {
           const percentage = (levelSlider - min) / (max - min); //0->1
           console.log(percentage);
           cy.get('input[name="language"]').type(language.name);
-          cy.get(".MuiSlider-root").then(($slider) => {
+          cy.get(".MuiSlider-root").then(($slider: any) => {
             const sliderWidth = $slider.width(); // Get actual width
             const sliderHeight = $slider.height(); // Get height for center alignment
             const clickX = sliderWidth * percentage; // Calculate exact click position
@@ -195,7 +196,7 @@ describe("Additional sections", () => {
     cy.get('[aria-pressed="true"]').should("contain.text", "Two columns");
 
     // Color selection
-    cy.fixture("design").then((design) => {
+    cy.fixture("design").then((design: any) => {
       const newTextColor = design.textColor;
       const newBgColor = design.backgroundColor;
       const newHeadingColor = design.headingColor;

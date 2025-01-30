@@ -12,9 +12,6 @@ const store = configureStore({
     additionalData: additionalDataReducer,
   },
 });
-if (window.Cypress) {
-  window.store = store; // Expose store to Cypress
-}
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
