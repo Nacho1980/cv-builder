@@ -144,7 +144,7 @@ describe("Additional sections", () => {
   it("Should update fields when typing", () => {
     cy.fixture("additionalSections").then((additionalData) => {
       // Summary
-      cy.get('input[name="summary"]').type(additionalData.summary);
+      cy.get('textarea[name="summary"]').type(additionalData.summary);
 
       // Skills
       additionalData.skills.forEach((skill: string, index: number) => {
@@ -158,14 +158,23 @@ describe("Additional sections", () => {
       // Languages
       additionalData.languages.forEach(
         (language: { name: string; level: string }, index: number) => {
+          const levelSlider = languageLevels.find(
+            (ll) => ll.label === language.level
+          )?.value;
+          console.log(language.name);
+          console.log("Slider level: " + levelSlider);
+          const min = 1;
+          const max = 7;
+          const percentage = (levelSlider - min) / (max - min); //0->1
+          console.log(percentage);
           cy.get('input[name="language"]').type(language.name);
-          cy.get('[aria-label="Select your level"]')
-            .find('input[type="range"]')
-            .invoke(
-              "val",
-              languageLevels.find((ll) => ll.label === language.level)?.value
-            )
-            .trigger("change", { force: true });
+          cy.get(".MuiSlider-root").then(($slider) => {
+            const sliderWidth = $slider.width(); // Get actual width
+            const sliderHeight = $slider.height(); // Get height for center alignment
+            const clickX = sliderWidth * percentage; // Calculate exact click position
+            const clickY = sliderHeight / 2; // Click in the vertical center
+            cy.wrap($slider).click(clickX, clickY, { force: true });
+          });
           cy.get('button[name="addLanguage"]').click();
         }
       );
