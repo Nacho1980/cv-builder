@@ -181,14 +181,21 @@ const AdditionalSectionsForm: React.FC = () => {
       </Box>
 
       {/* Add a new language */}
-      <Box display="flex" flexDirection="row" alignItems="center" gap={2}>
-        <TranslateIcon style={{ fontSize: 40, color: "coral" }} />
-        <TextField
-          label="Language"
-          name="language"
-          value={newLanguage.language}
-          onChange={handleChangeLanguage("language")}
-        />
+      <Box
+        display="flex"
+        className="phone-vert-others-hor"
+        alignItems="center"
+        gap={2}
+      >
+        <Box display="flex" flexDirection="row" alignItems="center" gap={2}>
+          <TranslateIcon style={{ fontSize: 40, color: "coral" }} />
+          <TextField
+            label="Language"
+            name="language"
+            value={newLanguage.language}
+            onChange={handleChangeLanguage("language")}
+          />
+        </Box>
         <DiscreteSlider
           marks={languageLevels}
           onChange={handleChangeLanguageLevel}

@@ -149,7 +149,7 @@ const ExperienceForm: React.FC = () => {
               onChange={handleChange("currentlyWorking")}
               inputProps={{ "aria-label": "Currently working" }}
             />
-            Current employer
+            Current
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap={2}>

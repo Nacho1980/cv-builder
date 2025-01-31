@@ -1,7 +1,7 @@
 import Looks3Icon from "@mui/icons-material/Looks3";
 import LooksOneIcon from "@mui/icons-material/LooksOne";
 import LooksTwoIcon from "@mui/icons-material/LooksTwo";
-import { Avatar } from "@mui/material";
+import { Alert, Avatar } from "@mui/material";
 import { MY_LINKEDIN_PROFILE } from "../../constants";
 
 const WelcomePage: React.FC = () => {
@@ -14,11 +14,11 @@ const WelcomePage: React.FC = () => {
       >
         <a href={MY_LINKEDIN_PROFILE}>IS</a>
       </Avatar>
-      <h1>Welcome to the CV Builder</h1>
+      <h1>CV Builder</h1>
       <div className="paragraph">
         Create and download your CV in PDF in a few simple steps:
       </div>
-      <div className="paragraph space-between">
+      <div className="paragraph enum">
         <div>
           <LooksOneIcon
             sx={{
@@ -50,10 +50,12 @@ const WelcomePage: React.FC = () => {
           Download the CV
         </div>
       </div>
-      <div className="paragraph">
-        Unlike other online tools CV Builder is &nbsp;
-        <span className="bold-text">FREE</span>&nbsp; and no personal
-        information is stored anywhere :)
+      <div className="paragraph disclaimer">
+        <Alert severity="success">
+          Unlike other online tools CV Builder is &nbsp;
+          <span className="bold-text">FREE</span>, requires no registration and
+          no personal information is stored anywhere :)
+        </Alert>
       </div>
     </div>
   );

@@ -56,7 +56,7 @@ const DateSelector: React.FC<DateSelectorProps> = ({
       <TextField
         name={testId}
         label={label}
-        value={selectedDate || "Click to select"}
+        value={selectedDate || "Select"}
         onClick={handleOpen}
         sx={{
           cursor: "pointer", // Makes the entire field clickable

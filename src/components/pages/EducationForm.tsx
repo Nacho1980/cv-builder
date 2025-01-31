@@ -88,8 +88,18 @@ const EducationForm: React.FC = () => {
       <Box className="page-header">Education</Box>
 
       {/* Add a new education item or edit an existing one */}
-      <Box display="flex" alignItems="center" gap={4}>
-        <Box display="flex" alignItems="center" gap={2}>
+      <Box
+        display="flex"
+        alignItems="center"
+        className="phone-vertical-orientation"
+        gap={4}
+      >
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={2}
+          className="phone-full-width"
+        >
           <CalendarMonthIcon style={{ fontSize: 40, color: "coral" }} />
           <DateSelector
             testId="date"
@@ -99,7 +109,13 @@ const EducationForm: React.FC = () => {
             error={isLaterThanToday(newEducation.year)}
           />
         </Box>
-        <Box display="flex" alignItems="center" gap={2} flex={1}>
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={2}
+          flex={1}
+          className="phone-full-width"
+        >
           <AssuredWorkloadIcon style={{ fontSize: 40, color: "coral" }} />
           <TextField
             name="center"
