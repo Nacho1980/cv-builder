@@ -6,6 +6,7 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
+import { languageLevels } from "../../constants";
 
 export const Template1Column = ({
   data,
@@ -37,11 +38,11 @@ export const Template1Column = ({
       paddingLeft: 10,
     },
     section: {
-      marginBottom: 20,
+      marginBottom: 10,
       paddingBottom: 10,
     },
     outlinedSection: {
-      marginBottom: 20,
+      marginBottom: 10,
       backgroundColor: headingColor,
     },
     sectionWithBorderBottom: {
@@ -171,7 +172,7 @@ export const Template1Column = ({
                 },
                 index: number
               ) => (
-                <View key={index} style={styles.section}>
+                <View key={index} style={styles.text}>
                   <Text style={styles.expHeader}>
                     <Text style={styles.bold}>
                       {exp.currentlyWorking
@@ -215,7 +216,16 @@ export const Template1Column = ({
                 index: number
               ) => (
                 <View key={index} style={styles.languageContainer}>
-                  <Text style={styles.languageLabel}>{language.language}</Text>
+                  <Text style={styles.languageLabel}>
+                    <Text style={styles.bold}>{language.language}: </Text>
+                    <Text>
+                      {
+                        languageLevels.find(
+                          (lang) => lang.value === language.level
+                        )?.label
+                      }
+                    </Text>
+                  </Text>
                   <View style={styles.languageBarContainer}>
                     <View
                       style={[

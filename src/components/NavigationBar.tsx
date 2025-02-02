@@ -51,7 +51,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
         >
           {isPhone ? (
             <>
-              <ArrowBackIosIcon /> <span>BACK</span>
+              <ArrowBackIosIcon /> <span className="navigation-text">BACK</span>
             </>
           ) : (
             <ArrowBackIosIcon />
@@ -71,10 +71,11 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
           disabled={isNextBtnDisabled()}
         >
           {currentStep === 0 ? (
-            "START"
+            <span className="navigation-text">START</span>
           ) : isPhone ? (
             <>
-              <span>NEXT </span> <ArrowForwardIosIcon />
+              <span className="navigation-text">NEXT </span>{" "}
+              <ArrowForwardIosIcon />
             </>
           ) : (
             <ArrowForwardIosIcon />
@@ -85,7 +86,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
   };
 
   return (
-    <div className="navigation-bar">
+    <div className={isPhone ? "navigation-bar" : "navigation-bar desktop"}>
       {!isPhone && <BackButton />}
       {isPhone && <NextButton />}
       {/* Progress bar */}

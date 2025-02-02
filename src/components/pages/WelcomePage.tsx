@@ -1,7 +1,7 @@
-import Looks3Icon from "@mui/icons-material/Looks3";
-import LooksOneIcon from "@mui/icons-material/LooksOne";
-import LooksTwoIcon from "@mui/icons-material/LooksTwo";
-import { Alert, Avatar } from "@mui/material";
+import DesignServicesIcon from "@mui/icons-material/DesignServices";
+import DownloadIcon from "@mui/icons-material/Download";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import { Alert, Avatar, Step, StepLabel, Stepper } from "@mui/material";
 import { MY_LINKEDIN_PROFILE } from "../../constants";
 
 const WelcomePage: React.FC = () => {
@@ -15,41 +15,34 @@ const WelcomePage: React.FC = () => {
         <a href={MY_LINKEDIN_PROFILE}>IS</a>
       </Avatar>
       <h1>CV Builder</h1>
-      <div className="paragraph">
+      <div className="paragraph margin-below">
         Create and download your CV in PDF in a few simple steps:
       </div>
-      <div className="paragraph enum">
-        <div>
-          <LooksOneIcon
-            sx={{
-              fontSize: 40,
-              backgroundColor: "lightblue",
-              color: "coral",
-            }}
-          />
-          Fill in the required info
-        </div>
-        <div>
-          <LooksTwoIcon
-            sx={{
-              fontSize: 40,
-              backgroundColor: "lightblue",
-              color: "coral",
-            }}
-          />
-          Customize the look
-        </div>
-        <div>
-          <Looks3Icon
-            sx={{
-              fontSize: 40,
-              backgroundColor: "lightblue",
-              color: "coral",
-            }}
-          />
-          Download the CV
-        </div>
-      </div>
+      <Stepper
+        alternativeLabel
+        sx={{
+          "& .MuiStepConnector-line": {
+            borderColor: "coral", // Change to your desired color
+            borderWidth: 2, // Optional: change thickness
+          },
+        }}
+      >
+        <Step key={1}>
+          <StepLabel icon={<EditNoteIcon color="primary" />}>
+            Fill in the details
+          </StepLabel>
+        </Step>
+        <Step key={2}>
+          <StepLabel icon={<DesignServicesIcon color="primary" />}>
+            Customize the look
+          </StepLabel>
+        </Step>
+        <Step key={3}>
+          <StepLabel icon={<DownloadIcon color="primary" />}>
+            Download
+          </StepLabel>
+        </Step>
+      </Stepper>
       <div className="paragraph disclaimer">
         <Alert severity="success">
           Unlike other online tools CV Builder is &nbsp;

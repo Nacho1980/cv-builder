@@ -1,6 +1,6 @@
 import AutoAwesomeMosaicIcon from "@mui/icons-material/AutoAwesomeMosaic";
 import BallotIcon from "@mui/icons-material/Ballot";
-import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Box, Divider, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -18,7 +18,7 @@ const DesignAndDownload: React.FC = () => {
   );
   const [color, setColor] = useState<string>("#000000");
   const [bgColor, setBgColor] = useState<string>("#FFFFFF");
-  const [headingColor, setHeadingColor] = useState<string>("#ADD8E6");
+  const [headingColor, setHeadingColor] = useState<string>("#FF7F50");
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -29,9 +29,7 @@ const DesignAndDownload: React.FC = () => {
 
   return (
     <div>
-      <Box className="page-header">
-        Almost done! Select a template and color for your CV
-      </Box>
+      <Box className="page-header">Template | Color</Box>
       <Box
         display="flex"
         flexDirection={isPhone ? "column" : "row"}
@@ -64,11 +62,17 @@ const DesignAndDownload: React.FC = () => {
             onChange={(newVal) => setColor(newVal)}
             color={color}
           />
+          {isPhone && (
+            <Divider orientation="vertical" variant="middle" flexItem />
+          )}
           <ColorSelector
             label="Background"
             onChange={(newVal) => setBgColor(newVal)}
             color={bgColor}
           />
+          {isPhone && (
+            <Divider orientation="vertical" variant="middle" flexItem />
+          )}
           <ColorSelector
             label="Heading"
             onChange={(newVal) => setHeadingColor(newVal)}
@@ -77,33 +81,42 @@ const DesignAndDownload: React.FC = () => {
         </Box>
       </Box>
 
-      <PDFDownloadLink
-        document={
-          <Template
-            selectedTemplate={selectedTemplate}
-            data={data}
-            color={color}
-            bgColor={bgColor}
-            headingColor={headingColor}
-          />
-        }
-        fileName="cv.pdf"
-      >
-        <div className="right-align margin-bottom">
-          <span>Download</span>
+      <Box className="download-container">
+        <PDFDownloadLink
+          document={
+            <Template
+              selectedTemplate={selectedTemplate}
+              data={data}
+              color={color}
+              bgColor={bgColor}
+              headingColor={headingColor}
+            />
+          }
+          fileName="cv.pdf"
+        >
+          <button className="download-button">
+            <span>Download</span>
+          </button>
+        </PDFDownloadLink>
+      </Box>
+      {!isPhone && (
+        <div
+          style={{
+            height: isPhone ? "80vh" : "600px",
+            border: "1px solid #ddd",
+          }}
+        >
+          <PDFViewer style={{ width: "100%", height: "100%" }}>
+            <Template
+              selectedTemplate={selectedTemplate}
+              data={data}
+              color={color}
+              bgColor={bgColor}
+              headingColor={headingColor}
+            />
+          </PDFViewer>
         </div>
-      </PDFDownloadLink>
-      <div style={{ height: "600px", border: "1px solid #ddd" }}>
-        <PDFViewer style={{ width: "100%", height: "100%" }}>
-          <Template
-            selectedTemplate={selectedTemplate}
-            data={data}
-            color={color}
-            bgColor={bgColor}
-            headingColor={headingColor}
-          />
-        </PDFViewer>
-      </div>
+      )}
     </div>
   );
 };
