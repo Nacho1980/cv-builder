@@ -11,7 +11,7 @@ import { updateField } from "../../reducers/personalDataSlice";
 import { RootState } from "../../store/store";
 import CountrySelector from "../CountrySelector";
 
-const PersonalInfoForm: React.FC = () => {
+const PersonalDataForm: React.FC = () => {
   const dispatch = useDispatch();
   const { countries } = useGetCountries();
   const { fields, errors } = useSelector(
@@ -127,4 +127,4 @@ const PersonalInfoForm: React.FC = () => {
   );
 };
 
-export default PersonalInfoForm;
+export default PersonalDataForm;

@@ -2,15 +2,23 @@ import AdditionalSectionsForm from "./components/pages/AdditionalSectionsForm";
 import DesignAndDownload from "./components/pages/DesignAndDownload";
 import EducationForm from "./components/pages/EducationForm";
 import ExperienceForm from "./components/pages/ExperienceForm";
-import PersonalInfoForm from "./components/pages/PersonalInfoForm";
+import PersonalInfoForm from "./components/pages/PersonalDataForm";
 import { Step } from "./types";
 
+export const stepPaths = [
+  "/personal-data",
+  "/education",
+  "/experience",
+  "/additional-info",
+  "/design-download",
+];
+
 export const stepLabels: Step[] = [
-  { value: 1, label: "Personal Info" },
+  { value: 1, label: "Personal Data" },
   { value: 2, label: "Education" },
   { value: 3, label: "Work Experience" },
-  { value: 4, label: "Additional" },
-  { value: 5, label: "Customize design" },
+  { value: 4, label: "Additional Info" },
+  { value: 5, label: "Design & Download" },
 ];
 interface StepComponent {
   step: number;
