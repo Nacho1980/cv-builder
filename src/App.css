@@ -176,6 +176,9 @@ input:-webkit-autofill {
     flex-direction: column;
     > div {
       width: 100%;
+      > div {
+        width: 100%;
+      }
     }
   }
   .phone-full-width {
@@ -183,5 +186,8 @@ input:-webkit-autofill {
   }
   .page-header {
     font-size: 1.5rem;
+  }
+  .slider-container {
+    width: 80% !important;
   }
 }

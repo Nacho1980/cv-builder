@@ -1,8 +1,8 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
 import { Slider } from "@mui/material";
-import { Step } from "../types";
+import Box from "@mui/material/Box";
+import * as React from "react";
 import { languageLevels } from "../constants";
+import { Step } from "../types";
 
 interface DiscreteSliderProps {
   marks: Step[];
@@ -24,6 +24,7 @@ const DiscreteSlider: React.FC<DiscreteSliderProps> = ({ marks, onChange }) => {
         display: "flex",
         alignContent: "center",
       }}
+      className="slider-container"
     >
       <Slider
         aria-label="Select your level"

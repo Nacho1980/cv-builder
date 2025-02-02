@@ -1,13 +1,10 @@
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-
-import { Button, createTheme, ThemeProvider } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import "./App.css";
-import CustomStepper from "./components/CustomStepper";
+import NavigationBar from "./components/NavigationBar";
 import WelcomePage from "./components/pages/WelcomePage";
-import { stepComponents, stepLabels } from "./constants";
+import { stepComponents } from "./constants";
 import { RootState } from "./store/store";
 
 function App() {
@@ -75,32 +72,11 @@ function App() {
         </div>
 
         {/* Navigation buttons */}
-        <div className="navigation-bar">
-          {currentStep > 0 && (
-            <Button
-              name="previousStepBtn"
-              variant="contained"
-              onClick={previousStep}
-              disabled={currentStep === 1}
-            >
-              <ArrowBackIosIcon />
-            </Button>
-          )}
-          {/* Progress bar */}
-          {currentStep > 0 && (
-            <CustomStepper currentStep={currentStep} steps={stepLabels} />
-          )}
-          {currentStep < stepLabels.length && (
-            <Button
-              name="nextStepBtn"
-              variant="contained"
-              onClick={nextStep}
-              disabled={isNextBtnDisabled()}
-            >
-              {currentStep === 0 ? "START" : <ArrowForwardIosIcon />}
-            </Button>
-          )}
-        </div>
+        <NavigationBar
+          currentStep={currentStep}
+          onNextStep={nextStep}
+          onPreviousStep={previousStep}
+        />
       </div>
     </ThemeProvider>
   );

@@ -5,11 +5,13 @@ import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { TemplateTypes } from "../../constants";
+import useIsPhone from "../../hooks/useIsPhone";
 import { RootState } from "../../store/store";
 import ColorSelector from "../ColorSelector";
 import { Template } from "../templates/Template";
 
 const DesignAndDownload: React.FC = () => {
+  const isPhone = useIsPhone();
   const data = useSelector((state: RootState) => state); // Retrieve data from Redux
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateTypes>(
     TemplateTypes.ONE_COLUMN
@@ -32,7 +34,7 @@ const DesignAndDownload: React.FC = () => {
       </Box>
       <Box
         display="flex"
-        flexDirection="row"
+        flexDirection={isPhone ? "column" : "row"}
         alignItems="center"
         gap={3}
         mb={3}
@@ -47,7 +49,8 @@ const DesignAndDownload: React.FC = () => {
             aria-label="Template"
           >
             <ToggleButton value={TemplateTypes.ONE_COLUMN}>
-              <BallotIcon /> Single column
+              <BallotIcon />
+              Single column
             </ToggleButton>
             <ToggleButton value={TemplateTypes.TWO_COLUMNS}>
               <AutoAwesomeMosaicIcon />
