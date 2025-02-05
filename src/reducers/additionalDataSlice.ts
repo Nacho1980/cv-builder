@@ -17,6 +17,9 @@ const additionalDataSlice = createSlice({
   name: "additionalData",
   initialState,
   reducers: {
+    setState: (state, action) => {
+      return { ...state, ...action.payload };
+    },
     updateSummary: (state, action: PayloadAction<string>) => {
       state.summary = action.payload;
     },
@@ -42,6 +45,7 @@ const additionalDataSlice = createSlice({
 });
 
 export const {
+  setState,
   updateSummary,
   addLanguage,
   updateLanguage,

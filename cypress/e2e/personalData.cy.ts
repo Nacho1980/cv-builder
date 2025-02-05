@@ -3,10 +3,9 @@ describe("Personal Info Form Tests", () => {
   beforeEach(() => {
     // Visit the form page before each test
     cy.visit("/");
-    cy.contains("Welcome to the CV Builder");
+    cy.contains("CV Builder");
 
     // Click the Start button to navigate to the Personal Info Form
-    //cy.contains("button", "START").click();
     cy.get('button[name="nextStepBtn"]').click();
 
     // Confirm navigation to the Personal Info Form

@@ -13,8 +13,5 @@ This application will be deployed in vercel, check the url as well as other proj
 https://github.com/Nacho1980
 
 Some improvements that could be done over this project (I moved on to other stuff :):
--React router to have different paths for each page
--Tests that do not rely on inputs for the previous pages, eg using the Redux store from Cypress
--And of course expanding the functionality: more validations, higher number of templates, etc.
--CSS improved by dividing into different files or the use of new tools like Tailwind
--CSS improvements to accomodate view for phones
+-Expanding the functionality: more validations, higher number of templates, etc.
+-CSS improved by dividing into different files, styling components or the use of new tools like Tailwind

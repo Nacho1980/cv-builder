@@ -25,6 +25,7 @@ import {
   updateSummary,
 } from "../../reducers/additionalDataSlice";
 import { RootState } from "../../store/store";
+import { LanguageItem } from "../../types";
 import CustomAccordion from "../CustomAccordion";
 import DiscreteSlider from "../DiscreteSlider";
 
@@ -155,7 +156,7 @@ const AdditionalSectionsForm: React.FC = () => {
         {skills.length > 0 && (
           <CustomAccordion title="Skills">
             <List data-testid="list-of-skills">
-              {skills.map((skill, index) => (
+              {skills.map((skill: string, index: number) => (
                 <React.Fragment key={index}>
                   <ListItem
                     key={index}
@@ -218,7 +219,7 @@ const AdditionalSectionsForm: React.FC = () => {
       {languages.length > 0 && (
         <CustomAccordion title="Languages">
           <List data-testid="list-of-languages">
-            {languages.map((language, index) => (
+            {languages.map((language: LanguageItem, index: number) => (
               <React.Fragment key={index}>
                 <ListItem
                   key={index}

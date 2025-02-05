@@ -1,14 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ExperienceItem } from "../types";
 import { compareDatesMMYYYY } from "../utils";
-
-interface ExperienceItem {
-  startDate: string;
-  finishDate?: string;
-  currentlyWorking?: boolean;
-  companyName: string;
-  positionName: string;
-  summary: string;
-}
 
 interface ExperienceState {
   items: ExperienceItem[];
@@ -24,6 +16,9 @@ const experienceSlice = createSlice({
   name: "experience",
   initialState,
   reducers: {
+    setState: (state, action) => {
+      return { ...state, ...action.payload };
+    },
     addExperience: (state, action: PayloadAction<ExperienceItem>) => {
       state.items.push(action.payload);
       state.items.sort((a, b) => compareDatesMMYYYY(a.startDate, b.startDate));
@@ -51,6 +46,7 @@ const experienceSlice = createSlice({
 });
 
 export const {
+  setState,
   addExperience,
   updateExperience,
   removeExperience,

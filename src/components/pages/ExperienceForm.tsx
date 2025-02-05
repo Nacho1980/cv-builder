@@ -24,6 +24,7 @@ import {
   validateExperience,
 } from "../../reducers/experienceSlice";
 import { RootState } from "../../store/store";
+import { ExperienceItem } from "../../types";
 import { compareDatesMMYYYY, isLaterThanToday } from "../../utils";
 import CustomAccordion from "../CustomAccordion";
 import DateSelector from "../DateSelector";
@@ -219,7 +220,7 @@ const ExperienceForm: React.FC = () => {
       {items.length > 0 && (
         <CustomAccordion title="Experience">
           <List data-testid="list-of-experience">
-            {items.map((item, index) => (
+            {items.map((item: ExperienceItem, index: number) => (
               <React.Fragment key={index}>
                 <ListItem
                   key={index}

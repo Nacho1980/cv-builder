@@ -1,11 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { EducationItem } from "../types";
 import { compareDatesMMYYYY } from "../utils";
-
-interface EducationItem {
-  year: string;
-  center: string;
-  degree: string;
-}
 
 interface EducationState {
   items: EducationItem[];
@@ -21,6 +16,9 @@ const educationSlice = createSlice({
   name: "education",
   initialState,
   reducers: {
+    setState: (state, action) => {
+      return { ...state, ...action.payload };
+    },
     addEducation: (state, action: PayloadAction<EducationItem>) => {
       state.items.push(action.payload);
       state.items.sort((a, b) => compareDatesMMYYYY(a.year, b.year));
@@ -48,6 +46,7 @@ const educationSlice = createSlice({
 });
 
 export const {
+  setState,
   addEducation,
   updateEducation,
   removeEducation,

@@ -1,50 +1,28 @@
 /// <reference types="cypress" />
+describe("Store Exposure Test", () => {
+  it("should expose Redux store to window", () => {
+    cy.visit("/");
+    cy.window().should("have.property", "store"); // Check store exists
+  });
+});
 describe("Education tests", () => {
   beforeEach(() => {
-    // Visit the form page before each test
-    cy.visit("/"); // Adjust to your route for this form
-    cy.contains("Welcome to the CV Builder");
-
-    // Handle ResizeObserver errors that are common with Material UI
-    cy.on("uncaught:exception", (err) => {
-      if (err.message.includes("ResizeObserver")) {
-        return false;
-      }
-    });
-
-    // Click the Start button to navigate to the Personal Info Form
-    //cy.contains("START").click();
-    cy.contains("button", "START").click();
-
-    // Confirm navigation to the Personal Info Form
-    cy.contains("Contact data").should("be.visible");
-
-    cy.fixture("userData").then((userData: any) => {
-      cy.get('input[name="fullName"]').type(userData.fullName);
-      cy.get('input[name="emailAddress"]').type(userData.email);
-      cy.get('input[name="city"]').type(userData.city);
-      cy.get('input[name="telephone"]').type(userData.telephone);
-      cy.get('input[name="web"]').type(userData.web);
-
-      cy.get('[name="country-select"]')
-        .parent()
-        .find(".MuiSelect-select")
-        .click({ force: true });
-      cy.get(".MuiPaper-root").should("be.visible");
-      cy.get(".MuiPaper-root").find('li[data-value="ES"]').click();
-
-      // Verify that inputs are updated
-      cy.get('input[name="fullName"]').should("have.value", userData.fullName);
-      cy.get('input[name="emailAddress"]').should("have.value", userData.email);
-      cy.get('input[name="city"]').should("have.value", userData.city);
-      cy.get('input[name="telephone"]').should(
-        "have.value",
-        userData.telephone
-      );
-      cy.get('input[name="web"]').should("have.value", userData.web);
-    });
-
-    cy.get('[data-testid="ArrowForwardIosIcon"]').click({ force: true });
+    const preloadedState = {
+      personalData: {
+        fields: {
+          fullName: "John Doe",
+          email: "john@example.com",
+          city: "New York",
+          country: "USA",
+          telephone: "1234567890",
+          web: "https://johndoe.com",
+        },
+        isValid: true,
+      },
+    };
+    cy.visit("/");
+    cy.setReduxState(preloadedState);
+    cy.visit("/education"); // Navigate directly to the education page
   });
 
   it("should render all form fields", () => {

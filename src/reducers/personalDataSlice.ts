@@ -19,6 +19,9 @@ const personalDataSlice = createSlice({
   name: "personalData",
   initialState,
   reducers: {
+    setState: (state, action) => {
+      return { ...state, ...action.payload };
+    },
     updateField: (
       state,
       action: PayloadAction<{ field: string; value: string }>
@@ -68,5 +71,6 @@ const validateField = (field: string, value: string): string | null => {
   }
 };
 
-export const { updateField, validateAllFields } = personalDataSlice.actions;
+export const { setState, updateField, validateAllFields } =
+  personalDataSlice.actions;
 export default personalDataSlice.reducer;

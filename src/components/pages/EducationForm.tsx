@@ -23,6 +23,7 @@ import {
   validateEducation,
 } from "../../reducers/educationSlice";
 import { RootState } from "../../store/store";
+import { EducationItem } from "../../types";
 import { isLaterThanToday } from "../../utils";
 import CustomAccordion from "../CustomAccordion";
 import DateSelector from "../DateSelector";
@@ -163,7 +164,7 @@ const EducationForm: React.FC = () => {
       {items.length > 0 && (
         <CustomAccordion title="Education">
           <List data-testid="list-of-education">
-            {items.map((item, index) => (
+            {items.map((item: EducationItem, index: number) => (
               <React.Fragment key={index}>
                 <ListItem
                   key={index}
