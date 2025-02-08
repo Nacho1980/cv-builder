@@ -13,7 +13,7 @@ const NavigationBar: React.FC = () => {
   const location = useLocation();
   const isPhone = useIsPhone();
 
-  const currentStep = stepPaths.indexOf(location.pathname); // Determine current step based on URL
+  const currentStep = stepPaths.indexOf(location.pathname) + 1; // Determine current step based on URL
 
   const { isValid, fields } = useSelector(
     (state: RootState) => state.personalData
@@ -24,15 +24,15 @@ const NavigationBar: React.FC = () => {
   const isNextBtnDisabled = () => {
     return (
       currentStep === stepPaths.length || // Disable if at the last step
-      (currentStep === 0 &&
+      (currentStep === 1 &&
         (!isValid ||
           !fields.country ||
           !fields.fullName ||
           !fields.email ||
           !fields.city ||
           !fields.telephone)) ||
-      (currentStep === 3 && !summary) || // Additional Info step validation
-      (currentStep === 1 && education.items.length === 0) // Education step validation
+      (currentStep === 4 && !summary) || // Additional Info step validation
+      (currentStep === 2 && education.items.length === 0) // Education step validation
     );
   };
 
@@ -40,26 +40,26 @@ const NavigationBar: React.FC = () => {
     if (currentStep === -1) {
       // If on WelcomePage, start at personal data
       navigate(stepPaths[0]);
-    } else if (currentStep < stepPaths.length - 1) {
-      navigate(stepPaths[currentStep + 1]);
+    } else if (currentStep < stepPaths.length) {
+      navigate(stepPaths[currentStep]);
     }
   };
 
   const handleBack = () => {
     if (currentStep > 0) {
-      navigate(stepPaths[currentStep - 1]);
+      navigate(stepPaths[currentStep - 2]);
     } else {
       navigate("/"); // Go back to WelcomePage if at the first step
     }
   };
 
   const BackButton = () =>
-    currentStep !== -1 && (
+    currentStep > 1 && (
       <Button
         name="previousStepBtn"
         variant="contained"
         onClick={handleBack}
-        disabled={currentStep === 0}
+        disabled={currentStep === 1}
       >
         {isPhone ? (
           <>
@@ -78,7 +78,7 @@ const NavigationBar: React.FC = () => {
       onClick={handleNext}
       disabled={isNextBtnDisabled()}
     >
-      {currentStep === -1 ? (
+      {currentStep < 1 ? (
         <span className="navigation-text">START</span>
       ) : isPhone ? (
         <>
@@ -95,7 +95,7 @@ const NavigationBar: React.FC = () => {
     <div className={isPhone ? "navigation-bar" : "navigation-bar desktop"}>
       {!isPhone && <BackButton />}
       {isPhone && <NextButton />}
-      {currentStep >= 0 && (
+      {currentStep > 0 && (
         <CustomStepper currentStep={currentStep} steps={stepLabels} />
       )}
       {!isPhone && <NextButton />}
